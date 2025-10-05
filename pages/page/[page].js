@@ -4,10 +4,10 @@ import matter from "gray-matter";
 import Link from "next/link";
 import Image from "next/image";
 
-// Define the number of posts per page (Configurable constant)
+// Define the number of posts per page (MUST match index.js)
 const POSTS_PER_PAGE = 3;
 
-// Pagination Component (included here for simplicity, ideally would be in components/Pagination.js)
+// Pagination Component (copied from index.js)
 const Pagination = ({ numPages, currentPage }) => {
   const pages = Array.from({ length: numPages }, (_, i) => i + 1);
 
@@ -32,7 +32,7 @@ const Pagination = ({ numPages, currentPage }) => {
 };
 
 
-export default function Home({ posts, search = "", numPages }) {
+export default function Page({ posts, search = "", numPages, currentPage }) {
   const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -40,7 +40,7 @@ export default function Home({ posts, search = "", numPages }) {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
-        {/* Sidebar */}
+        {/* Sidebar (Copied from index.js) */}
         <aside className="w-full md:w-80 bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col items-center">
           <Image
             src="/images/avatar.jpg"
@@ -93,6 +93,7 @@ export default function Home({ posts, search = "", numPages }) {
                 key={slug}
                 className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow mb-6 flex flex-col sm:flex-row flex-wrap gap-4 justify-between items-start w-full break-words"
               >
+                {/* Post rendering logic (same as before) */}
                 {/* Post cover image */}
                 {cover && (
                   <Image
@@ -143,15 +144,29 @@ export default function Home({ posts, search = "", numPages }) {
             ))
           )}
 
-          {/* Pagination component: Only render if there's more than one page */}
-          {numPages > 1 && <Pagination numPages={numPages} currentPage={1} />}
+          {/* Pagination component: render for all pages > 1 */}
+          {numPages > 1 && <Pagination numPages={numPages} currentPage={currentPage} />}
         </main>
       </div>
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
+  const files = fs.readdirSync(path.join("posts"));
+  const numPages = Math.ceil(files.length / POSTS_PER_PAGE);
+
+  // Generate paths for all pages except page 1 (which is '/')
+  const paths = Array.from({ length: numPages - 1 }, (_, i) => ({
+    params: { page: (i + 2).toString() }, // Start from page 2
+  }));
+
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const page = parseInt(params.page);
+
   const files = fs.readdirSync(path.join("posts"));
   let posts = files.map(filename => {
     const slug = filename.replace(".md", "");
@@ -173,8 +188,12 @@ export async function getStaticProps() {
   // 2. Calculate the total number of pages
   const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
-  // 3. Slice the posts to only show the first page's posts (index 0 to POSTS_PER_PAGE-1)
-  const postsToShow = posts.slice(0, POSTS_PER_PAGE);
+  // 3. Calculate start and end index for the current page
+  const startIndex = (page - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
 
-  return { props: { posts: postsToShow, numPages } };
+  // 4. Slice the posts for the current page
+  const postsToShow = posts.slice(startIndex, endIndex);
+
+  return { props: { posts: postsToShow, numPages, currentPage: page } };
 }
