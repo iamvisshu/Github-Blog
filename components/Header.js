@@ -10,7 +10,9 @@ export default function Header({
   onSearch = () => {},
   onSearchSubmit = () => {},
   searchResults = [],
-  clearSearch = () => {}
+  clearSearch = () => {},
+  // NEW PROP RECEIVED
+  searchPerformed = false
 }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -68,6 +70,8 @@ export default function Header({
             searchResults={searchResults}
             clearSearch={clearSearch}
             closeMobileMenu={closeMenu}
+            // NEW PROP PASSED DOWN
+            searchPerformed={searchPerformed}
         />
 
         {/* Desktop Theme Switcher */}
@@ -98,7 +102,7 @@ export default function Header({
             </a>
           </nav>
 
-          {/* Mobile Search - CRITICAL FIX: Stop Propagation Here */}
+          {/* Mobile Search - Propagation Blocker */}
           <div onClick={(e) => e.stopPropagation()} className="z-50">
             <SearchInput
               isMobile={true}
@@ -108,6 +112,8 @@ export default function Header({
               searchResults={searchResults}
               clearSearch={clearSearch}
               closeMobileMenu={closeMenu}
+              // NEW PROP PASSED DOWN
+              searchPerformed={searchPerformed}
             />
           </div>
 
@@ -133,7 +139,9 @@ function SearchInput({
     onSearchSubmit,
     searchResults,
     clearSearch,
-    closeMobileMenu
+    closeMobileMenu,
+    // NEW PROP RECEIVED
+    searchPerformed
 }) {
     const [inputValue, setInputValue] = useState(search);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -149,7 +157,7 @@ function SearchInput({
 
     const handleSubmit = useCallback(() => {
         if (inputValue.length > 0) {
-            onSearch(inputValue);
+            // This calls handleSearchSubmit in Layout.js, which sets submittedSearch and searchPerformed(true)
             onSearchSubmit(inputValue);
             setHighlightedIndex(-1);
 
@@ -157,7 +165,7 @@ function SearchInput({
                 inputRef.current.focus();
             }
         }
-    }, [inputValue, onSearch, onSearchSubmit]);
+    }, [inputValue, onSearchSubmit]);
 
 
     useEffect(() => {
@@ -168,6 +176,7 @@ function SearchInput({
             }
         };
         if (!isMobile) {
+            // Use mousedown to capture before other click handlers
             document.addEventListener("mousedown", handleClickOutside);
         }
         return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -175,14 +184,18 @@ function SearchInput({
 
 
     const handleKeyDown = (e) => {
-        if (e.key === "Enter" && searchResults.length === 0) {
+        if (e.key === "Enter") {
             e.preventDefault();
-            handleSubmit();
-            return;
+            // If Enter is hit, submit the search
+            if (searchResults.length === 0 || highlightedIndex === -1) {
+                handleSubmit();
+                return;
+            }
         }
 
         if (searchResults.length === 0) return;
 
+        // Navigation for Arrow Keys
         if (e.key === "ArrowDown") {
             e.preventDefault();
             setHighlightedIndex(prev =>
@@ -195,28 +208,27 @@ function SearchInput({
             );
         } else if (e.key === "Enter" && highlightedIndex !== -1) {
             e.preventDefault();
-            // Pass a dummy event object for consistency
+            // Trigger navigation for the highlighted item
             handleLinkClick({ stopPropagation: () => {} }, searchResults[highlightedIndex].slug);
         }
     };
 
     // Final Function to handle navigation click in the dropdown
     const handleLinkClick = (e, postSlug) => {
-        // 1. Safety first: Stop the event from bubbling to any parent listeners
+        // 1. Safety first: Stop the event from bubbling
         e.stopPropagation();
 
-        // 2. Clean up search state immediately
+        // 2. Clean up search state
         clearSearch();
         setInputValue("");
         setHighlightedIndex(-1);
 
-        // 3. Close the mobile menu immediately
+        // 3. Close the mobile menu
         if (isMobile && closeMobileMenu) {
             closeMobileMenu();
         }
 
-        // 4. ***CRITICAL FIX: Defer router.push***
-        // This ensures the DOM/state changes finish before navigation starts.
+        // 4. CRITICAL FIX: Defer router.push to resolve touch/state race condition
         setTimeout(() => {
             router.push(`/posts/${postSlug}`);
         }, 10);
@@ -235,6 +247,7 @@ function SearchInput({
                     placeholder="Search..."
                     className="w-full p-2 pl-10 border rounded-xl dark:bg-gray-800 dark:text-white dark:border-gray-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors duration-150 shadow-inner"
                     value={inputValue}
+                    // onSearch updates the visual input in Layout.js, but doesn't trigger the search
                     onChange={(e) => { onSearch(e.target.value); setInputValue(e.target.value); setHighlightedIndex(-1); }}
                     onKeyDown={handleKeyDown}
                     aria-label="Search posts globally"
@@ -250,26 +263,37 @@ function SearchInput({
             </div>
 
             {/* --- Search Results Dropdown --- */}
-            {searchResults.length > 0 && (
+            {/* CONDITION: Only show the box if searchPerformed is TRUE (after user hits Enter/Button) */}
+            {searchPerformed && (
                 <div
                     className="absolute z-40 w-full mt-2 bg-white dark:bg-gray-700 rounded-xl shadow-2xl border dark:border-gray-600 max-h-80 overflow-y-auto animate-slideDown"
                 >
-                    {searchResults.map((post, index) => (
-                        <div
-                            key={post.slug}
-                            // *** CRITICAL FIX: Use onMouseDown instead of onClick ***
-                            onMouseDown={(e) => handleLinkClick(e, post.slug)}
-                            className={`block p-3 border-b dark:border-gray-600 transition-colors cursor-pointer
-                                ${index === highlightedIndex
-                                ? 'bg-teal-100 dark:bg-teal-600'
-                                : 'hover:bg-gray-50 dark:hover:bg-gray-600'
-                                }`}
-                            onMouseEnter={() => setHighlightedIndex(index)}
-                        >
-                            <p className="font-bold text-black dark:text-white truncate">{post.title}</p>
-                            <p className="text-sm text-gray-500 dark:text-gray-300 line-clamp-1">{post.snippet}</p>
-                        </div>
-                    ))}
+                    {searchResults.length > 0 ? (
+                        // RENDER RESULTS
+                        searchResults.map((post, index) => (
+                            <div
+                                key={post.slug}
+                                // CRITICAL FIX: Use onMouseDown for reliable mobile click/tap
+                                onMouseDown={(e) => handleLinkClick(e, post.slug)}
+                                className={`block p-3 border-b dark:border-gray-600 transition-colors cursor-pointer
+                                    ${index === highlightedIndex
+                                    ? 'bg-teal-100 dark:bg-teal-600'
+                                    : 'hover:bg-gray-50 dark:hover:bg-gray-600'
+                                    }`}
+                                onMouseEnter={() => setHighlightedIndex(index)}
+                            >
+                                <p className="font-bold text-black dark:text-white truncate">{post.title}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-300 line-clamp-1">{post.snippet}</p>
+                            </div>
+                        ))
+                    ) : (
+                        // RENDER NO RESULTS PLACEHOLDER (only if searchPerformed is TRUE and input is not empty)
+                        inputValue.length > 0 && (
+                            <div className="p-4 text-gray-600 dark:text-gray-300 text-center">
+                                No results found for &quot;{inputValue}&quot;.
+                            </div>
+                        )
+                    )}
                 </div>
             )}
         </div>

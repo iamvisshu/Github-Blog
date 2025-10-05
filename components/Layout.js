@@ -8,16 +8,19 @@ const HEADER_IMAGE = "/images/header.webp";
 export default function Layout({ children }) {
   // search holds the text in the input field
   const [search, setSearch] = useState("");
-  // NEW: submittedSearch holds the query that triggers filtering
+  // submittedSearch holds the query that triggers filtering
   const [submittedSearch, setSubmittedSearch] = useState("");
+  // NEW: Tracks if a search action (Enter/Button click) has occurred
+  const [searchPerformed, setSearchPerformed] = useState(false);
   const [postIndex, setPostIndex] = useState([]);
 
   // Function to be passed to Header to trigger filtering
   const handleSearchSubmit = (query) => {
     setSubmittedSearch(query);
+    setSearchPerformed(true); // Set this flag on submit
   };
 
-  // 1. Fetch search data only once on mount (no change here)
+  // 1. Fetch search data only once on mount
   useEffect(() => {
     async function fetchSearchIndex() {
       try {
@@ -33,31 +36,37 @@ export default function Layout({ children }) {
 
   // 2. Filter posts based on the SUBMITTED search term
   const searchResults = useMemo(() => {
+    // Only search if a query has been submitted AND it's long enough
     if (!submittedSearch || submittedSearch.length < 2) {
       return [];
     }
 
     const term = submittedSearch.toLowerCase();
 
+    // Assuming postIndex items have a searchableText field (you might need to adjust this filter logic if your posts are filtered differently)
     return postIndex
       .filter(post => post.searchableText.includes(term))
       .slice(0, 8);
-  }, [submittedSearch, postIndex]); // DEPENDS ON submittedSearch
+  }, [submittedSearch, postIndex]);
 
 
   return (
     <>
-      {/* MODIFIED: Pass both search and the submit handler */}
       <Header
         search={search}
         onSearch={setSearch}
-        // NEW: Handler to manually trigger the search
         onSearchSubmit={handleSearchSubmit}
         searchResults={searchResults}
-        // MODIFIED: clearSearch now clears both states
-        clearSearch={() => { setSearch(""); setSubmittedSearch(""); }}
-      />
+        // NEW PROP PASSED DOWN
+        searchPerformed={searchPerformed}
 
+        // MODIFIED: clearSearch now clears searchPerformed as well
+        clearSearch={() => {
+          setSearch("");
+          setSubmittedSearch("");
+          setSearchPerformed(false); // Clear this flag too
+        }}
+      />
       <div className="relative w-full h-40 md:h-52 bg-gray-200 dark:bg-gray-900 mb-8">
         <img
           src={HEADER_IMAGE}
@@ -65,9 +74,7 @@ export default function Layout({ children }) {
           className="object-cover w-full h-full rounded-3xl"
         />
       </div>
-      <main className="min-h-screen">
-        {children}
-      </main>
+      <main className="min-h-screen">{children}</main>
       <Footer />
     </>
   );
