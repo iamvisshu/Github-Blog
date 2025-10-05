@@ -1,22 +1,21 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import Link from "next/link";
 import Image from "next/image";
+import PostCard from "../components/PostCard"; // Use the shared PostCard
+import Link from "next/link";
 
-// Define the number of posts per page (Configurable constant)
+// Define the number of posts per page
 const POSTS_PER_PAGE = 3;
 
-// Pagination Component (included here for simplicity, ideally would be in components/Pagination.js)
+// Pagination Component (retained - no changes needed)
 const Pagination = ({ numPages, currentPage }) => {
   const pages = Array.from({ length: numPages }, (_, i) => i + 1);
-
   return (
     <div className="flex justify-center mt-10 space-x-2">
       {pages.map(page => (
         <Link
           key={page}
-          // Link to / if it's the first page, otherwise link to /page/[page]
           href={page === 1 ? "/" : `/page/${page}`}
           className={`px-4 py-2 rounded-full font-bold transition-colors duration-200 ${
             page === currentPage
@@ -32,7 +31,8 @@ const Pagination = ({ numPages, currentPage }) => {
 };
 
 
-export default function Home({ posts, search = "", numPages }) {
+// CHANGE: Receive the 'allTags' prop from getStaticProps
+export default function Home({ posts, search = "", numPages, allTags }) {
   const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -54,92 +54,45 @@ export default function Home({ posts, search = "", numPages }) {
             Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding.
           </p>
 
-          {/* Social links */}
+          {/* Social links (Unchanged) */}
           <div className="flex gap-4 mb-8">
             <a href="https://www.linkedin.com/in/iamvisshu" className="bg-teal-200 p-2 rounded-full"><span role="img">🐦</span></a>
             <a href="https://iamvisshu.github.io" className="bg-green-200 p-2 rounded-full"><span role="img">💻</span></a>
             <a href="https://github.com/iamvisshu" className="bg-blue-200 p-2 rounded-full"><span role="img">🌐</span></a>
           </div>
 
-          {/* Categories */}
+          {/* CHANGE: Categories replaced with Dynamic Tags */}
           <div className="w-full">
-            <h4 className="font-bold mb-2 dark:text-white">Categories</h4>
-            <ul>
-              <li className="mb-1 flex justify-between">
-                <span className="dark:text-gray-200">Examples</span>
-                <span className="bg-gray-100 dark:bg-gray-700 rounded px-2">4</span>
-              </li>
-              <li className="mb-1 flex justify-between">
-                <span className="dark:text-gray-200">Guides</span>
-                <span className="bg-gray-100 dark:bg-gray-700 rounded px-2">1</span>
-              </li>
-              <li className="mb-1 flex justify-between">
-                <span className="dark:text-gray-200">Java</span>
-                <span className="bg-gray-100 dark:bg-gray-700 rounded px-2">3</span>
-              </li>
+            <h4 className="font-bold mb-2 dark:text-white">Tags</h4>
+            <ul className="space-y-2">
+              {/* Map over the sorted tags */}
+              {Object.entries(allTags).sort(([tagA, countA], [tagB, countB]) => countB - countA).map(([tag, count]) => (
+                <li key={tag} className="flex justify-between items-center">
+                  <Link
+                    href={`/tags/${tag}`}
+                    className="dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  >
+                    {tag}
+                  </Link>
+                  <span className="bg-gray-100 dark:bg-gray-700 rounded px-2 py-0.5 text-sm">
+                    {count}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </aside>
 
         {/* Main content */}
         <main className="flex-1 space-y-8">
+          {/* Post Card Rendering (Unchanged) */}
           {filteredPosts.length === 0 && search.length > 0 ? (
             <p className="text-gray-500 dark:text-gray-200">
               No posts found for "{search}"
             </p>
           ) : (
-            filteredPosts.map(({ slug, title, date, summary, tags, cover }) => (
-              <div
-                key={slug}
-                className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow mb-6 flex flex-col sm:flex-row flex-wrap gap-4 justify-between items-start w-full break-words"
-              >
-                {/* Post cover image */}
-                {cover && (
-                  <Image
-                    src={cover}
-                    alt={title}
-                    width={150}
-                    height={110}
-                    className="rounded-xl flex-shrink-0"
-                  />
-                )}
-
-                {/* Post content */}
-                <div className="flex-1 min-w-0">
-                  <Link href={`/posts/${slug}`}>
-                    <h2 className="text-2xl font-black mb-2 cursor-pointer hover:text-teal-500 dark:hover:text-teal-400 text-black dark:text-white break-words">
-                      {title}
-                    </h2>
-                  </Link>
-
-                  {/* Post meta (date + tags) */}
-                  <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-300 mb-2">
-                    <span>{date}</span>
-                    {tags?.map(tag => (
-                      <span
-                        key={tag}
-                        className="bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 rounded px-2 py-0.5 cursor-pointer break-words"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Summary */}
-                  <p className="text-gray-700 dark:text-gray-200 break-words w-full">
-                    {summary || "Post summary goes here."}
-                  </p>
-                </div>
-
-                {/* Arrow link */}
-                <div className="self-end sm:self-center">
-                  <Link href={`/posts/${slug}`}>
-                    <span className="p-2 rounded-full bg-indigo-50 dark:bg-indigo-900 text-xl font-bold text-indigo-700 dark:text-indigo-200 cursor-pointer">
-                      &rarr;
-                    </span>
-                  </Link>
-                </div>
-              </div>
+            filteredPosts.map(post => (
+              <PostCard key={post.slug} {...post} />
             ))
           )}
 
@@ -151,12 +104,21 @@ export default function Home({ posts, search = "", numPages }) {
   );
 }
 
+// CHANGE: Updated getStaticProps to collect tags and pass them as a prop
 export async function getStaticProps() {
   const files = fs.readdirSync(path.join("posts"));
+  let allTags = {}; // NEW: Object to store tags and their counts
+
   let posts = files.map(filename => {
     const slug = filename.replace(".md", "");
     const markdownWithMeta = fs.readFileSync(path.join("posts", filename), "utf-8");
     const { data: frontmatter, content } = matter(markdownWithMeta);
+
+    // NEW: Count tags while mapping posts
+    (frontmatter.tags || []).forEach(tag => {
+      allTags[tag] = allTags[tag] ? allTags[tag] + 1 : 1;
+    });
+
     return {
       slug,
       title: frontmatter.title,
@@ -173,8 +135,9 @@ export async function getStaticProps() {
   // 2. Calculate the total number of pages
   const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
-  // 3. Slice the posts to only show the first page's posts (index 0 to POSTS_PER_PAGE-1)
+  // 3. Slice the posts to only show the first page's posts
   const postsToShow = posts.slice(0, POSTS_PER_PAGE);
 
-  return { props: { posts: postsToShow, numPages } };
+  // CHANGE: Return allTags alongside posts and numPages
+  return { props: { posts: postsToShow, numPages, allTags } };
 }
