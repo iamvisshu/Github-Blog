@@ -10,7 +10,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Header search={search} onSearch={setSearch} />
-      <div className="relative w-full h-52 bg-gray-200 dark:bg-gray-900 mb-8">
+      <div className="relative w-full h-40 md:h-52 bg-gray-200 dark:bg-gray-900 mb-8">
         <img
           src={HEADER_IMAGE}
           alt="Header"

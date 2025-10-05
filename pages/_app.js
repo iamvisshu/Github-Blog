@@ -7,6 +7,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="images/favicon.ico" />
         <title>Vishal's Blog</title>
       </Head>
