@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Calendar, Tag, User } from "lucide-react";
 
 // NOTE: These imports are left at the top for the main component rendering.
-// But we need to use dynamic imports for getStaticProps below.
+// Dynamic imports are used inside getStaticProps for build compatibility.
 
 export default function PostPage({ frontmatter, contentHtml }) {
-  // Destructure tags and author (defaulting to Vishal Vishwakarma)
+  // Destructure frontmatter, using "Vishal Vishwakarma" as the default author
   const { title, date, tags, author = "Vishal Vishwakarma" } = frontmatter;
 
   return (
@@ -17,7 +17,7 @@ export default function PostPage({ frontmatter, contentHtml }) {
       <article className="flex-1 w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-8">
         <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
 
-        {/* MODIFIED: Display Date, Author, and Clickable Tags with Icons */}
+        {/* Metadata Section with Icons and Links */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6 border-b pb-4">
 
             {/* Date with Calendar Icon */}
@@ -28,13 +28,16 @@ export default function PostPage({ frontmatter, contentHtml }) {
 
             <span className="text-gray-400 dark:text-gray-600">|</span>
 
-            {/* Author Name with User Icon */}
-            <span className="flex items-center gap-1 text-black dark:text-white">
+            {/* Author Name wrapped in Link to /about */}
+            <Link
+                href="/about"
+                className="flex items-center gap-1 text-black dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer"
+            >
                 <User className="w-4 h-4 text-teal-500" />
                 {author}
-            </span>
+            </Link>
 
-            {/* Tags with Tag Icon (Show only if tags exist) */}
+            {/* Tags with Tag Icon (Only show if tags exist) */}
             {tags && tags.length > 0 && (
                 <>
                     <span className="text-gray-400 dark:text-gray-600">|</span>
@@ -55,8 +58,8 @@ export default function PostPage({ frontmatter, contentHtml }) {
                 </>
             )}
         </div>
-        {/* --- END MODIFIED CODE --- */}
 
+        {/* Post Content */}
         <div
           className="prose dark:prose-invert max-w-none overflow-hidden"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
@@ -66,9 +69,7 @@ export default function PostPage({ frontmatter, contentHtml }) {
   );
 }
 
-// getStaticPaths uses 'require' which should be fine, but we'll use dynamic import for consistency
 export async function getStaticPaths() {
-    // Note: We leave require for fs/path for simplicity, but dynamic imports are safest
     const fs = require("fs");
     const path = require("path");
 
@@ -80,16 +81,16 @@ export async function getStaticPaths() {
     return { paths, fallback: false };
 }
 
-// FIX: Use dynamic import() for all ESM modules like remark and its plugins
 export async function getStaticProps({ params: { slug } }) {
+    // Standard Node/CJS modules can use require
     const fs = require("fs");
     const path = require("path");
-    const matter = require("gray-matter"); // gray-matter is CJS, require is fine
+    const matter = require("gray-matter");
 
-    // FIX: Dynamic imports for all remark dependencies
+    // Dynamic imports for modern ESM modules (required for Next.js build)
     const { remark } = await import("remark");
-    const { default: remarkHtml } = await import("remark-html"); // Note the .default
-    const { default: remarkGfm } = await import("remark-gfm"); // Note the .default
+    const { default: remarkHtml } = await import("remark-html");
+    const { default: remarkGfm } = await import("remark-gfm");
 
     const markdownWithMeta = fs.readFileSync(
       path.join("posts", `${slug}.md`),
@@ -98,8 +99,8 @@ export async function getStaticProps({ params: { slug } }) {
     const { data: frontmatter, content } = matter(markdownWithMeta);
 
     const processedContent = await remark()
-      .use(remarkHtml) // Use the imported module
-      .use(remarkGfm) // Use the imported module
+      .use(remarkHtml)
+      .use(remarkGfm)
       .process(content);
 
     const contentHtml = processedContent.toString();

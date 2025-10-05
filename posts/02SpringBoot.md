@@ -1,6 +1,6 @@
 ---
 title: "The Heart of Spring Boot APIs: The Controller"
-date: "2025-10-08"
+date: "08-10-2025"
 tags: ["Java","Spring Boot","API","REST"]
 summary: "Understanding the RestController and GetMapping annotations in Spring Boot—the foundational elements for building modern REST APIs."
 cover: "/images/example.png"

@@ -1,6 +1,6 @@
 ---
 title: "Why Learn Spring Boot?"
-date: "2025-10-05"
+date: "07-10-2025"
 tags: ["Java","Spring Boot"]
 summary: "Why Learn Spring Boot? Ditching the Boilerplate for Modern Java Development (Series)."
 cover: "/images/example.png"
