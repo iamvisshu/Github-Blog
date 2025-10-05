@@ -14,10 +14,14 @@ export default function Layout({ children }) {
         <img
           src={HEADER_IMAGE}
           alt="Header"
-          className="object-cover w-full h-full rounded-b-3xl"
+          className="object-cover w-full h-full rounded-3xl"
         />
       </div>
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen">
+        {/* The top margin here, combined with the margin on the div above,
+            will create a slight gap at the top of the main content. */}
+        {children}
+      </main>
       <Footer />
     </>
   );

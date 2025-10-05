@@ -14,7 +14,11 @@ export default function Header({ search = "", onSearch = () => {} }) {
   return (
     <header className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 border-b sticky top-0 z-50 shadow-sm">
       {/* Title */}
-      <h1 className="font-bold text-xl text-teal-500">Vishal&apos;s Blog</h1>
+      <Link href="/" className="cursor-pointer">
+        <h1 className="font-bold text-xl text-teal-500 hover:text-teal-600 transition-colors">
+          Vishal&apos;s Blog
+        </h1>
+      </Link>
 
       {/* Hamburger (visible on mobile) */}
       <button
