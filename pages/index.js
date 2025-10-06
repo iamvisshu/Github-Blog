@@ -2,13 +2,12 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Image from "next/image";
-import PostCard from "../components/PostCard"; // Use the shared PostCard
+import PostCard from "../components/PostCard";
 import Link from "next/link";
+import { Linkedin, Github, Globe, Twitter } from "lucide-react";
 
-// Define the number of posts per page
 const POSTS_PER_PAGE = 3;
 
-// Pagination Component (retained - no changes needed)
 const Pagination = ({ numPages, currentPage }) => {
   const pages = Array.from({ length: numPages }, (_, i) => i + 1);
   return (
@@ -31,7 +30,6 @@ const Pagination = ({ numPages, currentPage }) => {
 };
 
 
-// CHANGE: Receive the 'allTags' prop from getStaticProps
 export default function Home({ posts, search = "", numPages, allTags }) {
   const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(search.toLowerCase())
@@ -40,29 +38,63 @@ export default function Home({ posts, search = "", numPages, allTags }) {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
-        {/* Sidebar */}
-        <aside className="w-full md:w-80 bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col items-center">
-          <Image
-            src="/images/avatar.jpg"
-            width={120}
-            height={120}
-            alt="Profile"
-            className="rounded-xl object-cover mb-4"
-          />
-          <p className="font-black text-xl mb-2 dark:text-white">iamvisshu</p>
-          <p className="text-center text-gray-500 dark:text-gray-300 mb-4">
-            Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding.
-          </p>
+        {/* Sidebar (MODIFIED: Removed background/shadow/padding, added gap) */}
+        {/* The main sidebar wrapper now just defines the width and vertical gap */}
+        <aside className="w-full md:w-80 flex flex-col space-y-6">
 
-          {/* Social links (Unchanged) */}
-          <div className="flex gap-4 mb-8">
-            <a href="https://www.linkedin.com/in/iamvisshu" className="bg-teal-200 p-2 rounded-full"><span role="img">🐦</span></a>
-            <a href="https://iamvisshu.github.io" className="bg-green-200 p-2 rounded-full"><span role="img">💻</span></a>
-            <a href="https://github.com/iamvisshu" className="bg-blue-200 p-2 rounded-full"><span role="img">🌐</span></a>
+          {/* SECTION 1: Bio and Social Links (NEW: Styled as a separate card) */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col items-center text-center">
+            <Image
+              src="/images/avatar.jpg"
+              width={120}
+              height={120}
+              alt="Profile"
+              className="rounded-xl object-cover mb-4"
+            />
+            <p className="font-black text-xl mb-2 dark:text-white">iamvisshu</p>
+            <p className="text-gray-500 dark:text-gray-300 mb-4">
+              Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding.
+            </p>
+
+            {/* Social links */}
+            <div className="flex gap-4">
+              <a
+                href="https://www.linkedin.com/in/iamvisshu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-teal-200 p-2 rounded-full text-teal-700 dark:bg-teal-900 dark:text-teal-200"
+              >
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a
+                href="https://x.com/iamvisshu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-indigo-200 p-2 rounded-full text-indigo-700 dark:bg-indigo-900 dark:text-indigo-200"
+              >
+                <Twitter className="w-6 h-6" />
+              </a>
+              <a
+                href="https://iamvisshu.github.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-200 p-2 rounded-full text-green-700 dark:bg-green-900 dark:text-green-200"
+              >
+                <Globe className="w-6 h-6" />
+              </a>
+              <a
+                href="https://github.com/iamvisshu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-200 p-2 rounded-full text-blue-700 dark:bg-blue-900 dark:text-blue-200"
+              >
+                <Github className="w-6 h-6" />
+              </a>
+            </div>
           </div>
 
-          {/* CHANGE: Categories replaced with Dynamic Tags */}
-          <div className="w-full">
+          {/* SECTION 2: Dynamic Tags (NEW: Styled as a separate card) */}
+          <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
             <h4 className="font-bold mb-2 dark:text-white">Tags</h4>
             <ul className="space-y-2">
               {/* Map over the sorted tags */}
@@ -85,7 +117,7 @@ export default function Home({ posts, search = "", numPages, allTags }) {
 
         {/* Main content */}
         <main className="flex-1 space-y-8">
-          {/* Post Card Rendering (Unchanged) */}
+          {/* Post Card Rendering */}
           {filteredPosts.length === 0 && search.length > 0 ? (
             <p className="text-gray-500 dark:text-gray-200">
               No posts found for "{search}"
@@ -96,7 +128,7 @@ export default function Home({ posts, search = "", numPages, allTags }) {
             ))
           )}
 
-          {/* Pagination component: Only render if there's more than one page */}
+          {/* Pagination component */}
           {numPages > 1 && <Pagination numPages={numPages} currentPage={1} />}
         </main>
       </div>
@@ -104,17 +136,16 @@ export default function Home({ posts, search = "", numPages, allTags }) {
   );
 }
 
-// CHANGE: Updated getStaticProps to collect tags and pass them as a prop
 export async function getStaticProps() {
   const files = fs.readdirSync(path.join("posts"));
-  let allTags = {}; // NEW: Object to store tags and their counts
+  let allTags = {};
 
   let posts = files.map(filename => {
     const slug = filename.replace(".md", "");
     const markdownWithMeta = fs.readFileSync(path.join("posts", filename), "utf-8");
     const { data: frontmatter, content } = matter(markdownWithMeta);
 
-    // NEW: Count tags while mapping posts
+    // Count tags while mapping posts
     (frontmatter.tags || []).forEach(tag => {
       allTags[tag] = allTags[tag] ? allTags[tag] + 1 : 1;
     });
@@ -138,6 +169,5 @@ export async function getStaticProps() {
   // 3. Slice the posts to only show the first page's posts
   const postsToShow = posts.slice(0, POSTS_PER_PAGE);
 
-  // CHANGE: Return allTags alongside posts and numPages
   return { props: { posts: postsToShow, numPages, allTags } };
 }
