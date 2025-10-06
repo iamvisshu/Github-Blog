@@ -6,7 +6,7 @@ import PostCard from "../components/PostCard";
 import Link from "next/link";
 import { Linkedin, Github, Globe, Twitter, BadgeCheck } from "lucide-react";
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 4;
 
 const Pagination = ({ numPages, currentPage }) => {
   const pages = Array.from({ length: numPages }, (_, i) => i + 1);

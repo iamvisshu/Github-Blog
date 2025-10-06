@@ -6,7 +6,7 @@ import Link from "next/link";
 import PostCard from "../../components/PostCard";
 
 // NOTE: Ensure this value matches the one in pages/index.js!
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 4;
 
 // Pagination Component (retained)
 const Pagination = ({ numPages, currentPage }) => {
