@@ -38,11 +38,10 @@ export default function Home({ posts, search = "", numPages, allTags }) {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
-        {/* Sidebar (MODIFIED: Removed background/shadow/padding, added gap) */}
-        {/* The main sidebar wrapper now just defines the width and vertical gap */}
+        {/* Sidebar */}
         <aside className="w-full md:w-80 flex flex-col space-y-6">
 
-          {/* SECTION 1: Bio and Social Links (NEW: Styled as a separate card) */}
+          {/* SECTION 1: Bio and Social Links */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col items-center text-center">
             <Image
               src="/images/avatar.jpg"
@@ -93,25 +92,22 @@ export default function Home({ posts, search = "", numPages, allTags }) {
             </div>
           </div>
 
-          {/* SECTION 2: Dynamic Tags (NEW: Styled as a separate card) */}
+          {/* SECTION 2: Dynamic Tags (MODIFIED: New pill layout and hover color) */}
           <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
-            <h4 className="font-bold mb-2 dark:text-white">Tags</h4>
-            <ul className="space-y-2">
-              {/* Map over the sorted tags */}
+            <h4 className="font-bold mb-4 dark:text-white">Tags</h4>
+            {/* New flex layout for the pills */}
+            <div className="flex flex-wrap gap-2">
               {Object.entries(allTags).sort(([tagA, countA], [tagB, countB]) => countB - countA).map(([tag, count]) => (
-                <li key={tag} className="flex justify-between items-center">
-                  <Link
-                    href={`/tags/${tag}`}
-                    className="dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                  >
-                    {tag}
-                  </Link>
-                  <span className="bg-gray-100 dark:bg-gray-700 rounded px-2 py-0.5 text-sm">
-                    {count}
-                  </span>
-                </li>
+                <Link
+                  key={tag}
+                  href={`/tags/${tag}`}
+                  className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-700 text-teal-600 dark:text-teal-400 transition-colors
+                             hover:bg-teal-600 hover:text-white dark:hover:bg-teal-500"
+                >
+                  {tag} ({count})
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
         </aside>
 
