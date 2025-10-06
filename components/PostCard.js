@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Calendar, Tag, Clock, BookOpen } from "lucide-react";
 
-export default function PostCard({ slug, title, date, summary, tags, cover }) {
+export default function PostCard({ slug, title, date, summary, tags, cover, wordCount, readingTime }) {
   return (
     <div
         key={slug}
@@ -26,18 +27,51 @@ export default function PostCard({ slug, title, date, summary, tags, cover }) {
                 </h2>
             </Link>
 
-            {/* Post meta (date + tags) */}
-            <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-300 mb-2">
-                <span>{date}</span>
-                {tags?.map(tag => (
-                    <Link
-                        key={tag}
-                        href={`/tags/${tag}`} // Link to the tag page
-                        className="bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 rounded px-2 py-0.5 cursor-pointer break-words hover:bg-indigo-200 dark:hover:bg-indigo-700 transition"
-                    >
-                        {tag}
-                    </Link>
-                ))}
+            {/* Post meta (date, time to read, word count, tags) */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-300 mb-3">
+
+                {/* Date with Calendar Icon */}
+                <span className="flex items-center gap-1 text-black dark:text-white">
+                    <Calendar className="w-4 h-4 text-teal-500" />
+                    {date}
+                </span>
+
+                <span className="text-gray-400 dark:text-gray-600">|</span>
+
+                {/* Reading Time with Clock Icon */}
+                <span className="flex items-center gap-1 text-black dark:text-white">
+                    <Clock className="w-4 h-4 text-teal-500" />
+                    {readingTime} min read
+                </span>
+
+                <span className="text-gray-400 dark:text-gray-600">|</span>
+
+                {/* Word Count with Book Icon */}
+                <span className="flex items-center gap-1 text-black dark:text-white">
+                    <BookOpen className="w-4 h-4 text-teal-500" />
+                    {wordCount?.toLocaleString()} words
+                </span>
+
+                {/* Tags with Tag Icon */}
+                {tags?.length > 0 && (
+                    <>
+                        <span className="text-gray-400 dark:text-gray-600">|</span>
+                        <div className="flex items-center gap-1">
+                            <Tag className="w-4 h-4 text-teal-500" />
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {tags.map(tag => (
+                                <Link
+                                    key={tag}
+                                    href={`/tags/${tag}`}
+                                    className="bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 rounded px-2 py-0.5 cursor-pointer break-words hover:bg-indigo-200 dark:hover:bg-indigo-700 transition"
+                                >
+                                    {tag}
+                                </Link>
+                            ))}
+                        </div>
+                    </>
+                )}
             </div>
 
             {/* Summary */}
@@ -49,7 +83,7 @@ export default function PostCard({ slug, title, date, summary, tags, cover }) {
         {/* Arrow link */}
         <div className="self-end sm:self-center">
             <Link href={`/posts/${slug}`}>
-                <span className="p-2 rounded-full bg-indigo-50 dark:bg-indigo-900 text-xl font-bold text-indigo-700 dark:text-indigo-200 cursor-pointer">
+                <span className="p-2 rounded-full bg-indigo-50 dark:bg-indigo-900 text-xl font-bold text-indigo-700 dark:text-indigo-200 hover:bg-indigo-100 dark:hover:bg-indigo-700 transition-colors">
                     &rarr;
                 </span>
             </Link>

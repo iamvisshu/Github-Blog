@@ -1,13 +1,11 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-// Removed: Image, Link, and Lucide icons as they are now in Sidebar.js
 import PostCard from "../components/PostCard";
 import Link from "next/link";
-// NEW: Import the Sidebar component
 import Sidebar from "../components/Sidebar";
+import { Calendar, Tag, Clock, BookOpen } from "lucide-react";
 
-// NOTE: Adjusted to POSTS_PER_PAGE=4 based on the latest context from [page].js
 const POSTS_PER_PAGE = 4;
 
 const Pagination = ({ numPages, currentPage }) => {
@@ -40,12 +38,8 @@ export default function Home({ posts, search = "", numPages, allTags }) {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
-        {/* MODIFIED: Use reusable Sidebar component and pass isHomepage={true} */}
         <Sidebar allTags={allTags} isHomepage={true} />
-
-        {/* Main content */}
         <main className="flex-1 space-y-8">
-          {/* Post Card Rendering */}
           {filteredPosts.length === 0 && search.length > 0 ? (
             <p className="text-gray-500 dark:text-gray-200">
               No posts found for "{search}"
@@ -55,8 +49,6 @@ export default function Home({ posts, search = "", numPages, allTags }) {
               <PostCard key={post.slug} {...post} />
             ))
           )}
-
-          {/* Pagination component */}
           {numPages > 1 && <Pagination numPages={numPages} currentPage={1} />}
         </main>
       </div>
@@ -78,6 +70,10 @@ export async function getStaticProps() {
       allTags[tag] = allTags[tag] ? allTags[tag] + 1 : 1;
     });
 
+    // Calculate Word Count & Reading Time
+    const wordCount = content.split(/\s/g).length;
+    const readingTime = Math.ceil(wordCount / 200);
+
     return {
       slug,
       title: frontmatter.title,
@@ -85,6 +81,8 @@ export async function getStaticProps() {
       tags: frontmatter.tags || [],
       summary: frontmatter.summary || content.substr(0, 80) + "...",
       cover: frontmatter.cover || null,
+      wordCount,
+      readingTime
     };
   });
 
@@ -94,8 +92,14 @@ export async function getStaticProps() {
   // 2. Calculate the total number of pages
   const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
-  // 3. Slice the posts to only show the first page's posts
-  const postsToShow = posts.slice(0, POSTS_PER_PAGE);
+  // 3. Slice the posts for the current page (Page 1)
+  const currentPagePosts = posts.slice(0, POSTS_PER_PAGE);
 
-  return { props: { posts: postsToShow, numPages, allTags } };
+  return {
+    props: {
+      posts: currentPagePosts,
+      numPages,
+      allTags: allTags,
+    },
+  };
 }
