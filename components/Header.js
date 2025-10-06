@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, Sun, Moon } from "lucide-react";
 import { useRouter } from "next/router";
 
 // The main Header component remains clean, handling only menu/theme
@@ -28,7 +28,8 @@ export default function Header({
 
 
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 border-b sticky top-0 z-50 shadow-sm">
+    // Header tag is retained from the previous fix
+    <header className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-transparent sticky top-0 z-50 shadow-sm">
 
       {/* Title */}
       <Link href="/" className="cursor-pointer">
@@ -48,19 +49,35 @@ export default function Header({
 
       {/* Desktop Menu */}
       <div className="hidden md:flex items-center gap-4 flex-1 justify-end">
-        <nav className="flex gap-4 items-center">
-          <Link href="/" className="hover:text-teal-500 transition-colors">Home</Link>
-          <Link href="/about" className="hover:text-teal-500 transition-colors">About</Link>
-          <Link href="/tags" className="hover:text-teal-500 transition-colors">Tags</Link>
-          <a
-            href="https://github.com/iamvisshu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-teal-500 transition-colors"
-          >
-            GitHub
-          </a>
-        </nav>
+          <nav className="flex gap-4 items-center">
+              {/* MODIFIED: Updated hover styles for teal branding */}
+            <Link
+              href="/"
+              className="font-semibold px-3 py-1 rounded-full hover:bg-teal-50 hover:text-teal-500 dark:hover:bg-teal-900 dark:hover:text-teal-400 transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className="font-semibold px-3 py-1 rounded-full hover:bg-teal-50 hover:text-teal-500 dark:hover:bg-teal-900 dark:hover:text-teal-400 transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/tags"
+              className="font-semibold px-3 py-1 rounded-full hover:bg-teal-50 hover:text-teal-500 dark:hover:bg-teal-900 dark:hover:text-teal-400 transition-colors"
+            >
+              Tags
+            </Link>
+            <a
+              href="https://github.com/iamvisshu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold px-3 py-1 rounded-full hover:bg-teal-50 hover:text-teal-500 dark:hover:bg-teal-900 dark:hover:text-teal-400 transition-colors"
+            >
+              GitHub
+            </a>
+          </nav>
 
         {/* Desktop Search */}
         <SearchInput
@@ -80,7 +97,8 @@ export default function Header({
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
         >
-          {mounted && (theme === "dark" ? "🌞" : "🌙")}
+          {/* Icons from Lucide */}
+          {mounted && (theme === "dark" ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-indigo-600" />)}
         </button>
       </div>
 
@@ -88,14 +106,15 @@ export default function Header({
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 border-t flex flex-col gap-3 px-4 py-4 md:hidden animate-slideDown shadow-md z-40">
           <nav className="flex flex-col gap-3">
-            <Link href="/" onClick={closeMenu} className="hover:underline">Home</Link>
-            <Link href="/about" onClick={closeMenu} className="hover:underline">About</Link>
-            <Link href="/tags" onClick={closeMenu} className="hover:underline">Tags</Link>
+            {/* Mobile links keep the font-semibold class for consistency */}
+            <Link href="/" onClick={closeMenu} className="font-semibold hover:underline">Home</Link>
+            <Link href="/about" onClick={closeMenu} className="font-semibold hover:underline">About</Link>
+            <Link href="/tags" onClick={closeMenu} className="font-semibold hover:underline">Tags</Link>
             <a
               href="https://github.com/iamvisshu"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="font-semibold hover:underline"
               onClick={closeMenu}
             >
               GitHub
@@ -118,11 +137,22 @@ export default function Header({
           </div>
 
           <button
-            className="border rounded p-2 w-fit"
+            className="border rounded p-2 w-fit flex items-center gap-2"
             onClick={toggleTheme}
             aria-label="Toggle Dark Mode"
           >
-            {mounted && (theme === "dark" ? "🌞" : "🌙")}
+            {/* Icons from Lucide */}
+            {mounted && (theme === "dark" ? (
+              <>
+                <Sun className="w-5 h-5 text-yellow-400" />
+                <span>Switch to Light Mode</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-5 h-5 text-indigo-600" />
+                <span>Switch to Dark Mode</span>
+              </>
+            ))}
           </button>
         </div>
       )}
