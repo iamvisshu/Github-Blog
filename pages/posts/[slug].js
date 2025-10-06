@@ -1,21 +1,72 @@
 import matter from "gray-matter";
 import Link from "next/link";
-import { Calendar, Tag, User } from "lucide-react";
+// Ensure ALL Lucide icons are imported from lucide-react (the correct package)
+import {
+    Calendar,
+    Tag,
+    User,
+    Clock,
+    BookOpen,
+    ChevronLeft,
+    ChevronRight
+} from "lucide-react";
 
 // NOTE: These imports are left at the top for the main component rendering.
 // Dynamic imports are used inside getStaticProps for build compatibility.
 
-export default function PostPage({ frontmatter, contentHtml }) {
-  // Destructure frontmatter, using "Vishal Vishwakarma" as the default author
+// Helper component for Next/Previous Navigation
+const PostNavigation = ({ prevPost, nextPost }) => {
+  return (
+    <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
+      {/* Previous Post Link */}
+      {prevPost ? (
+        <Link
+          href={`/posts/${prevPost.slug}`}
+          className="flex flex-col p-4 rounded-xl transition-all duration-300 hover:bg-teal-50 dark:hover:bg-teal-900/50 group w-full mr-4 border border-gray-200 dark:border-gray-700"
+        >
+          <span className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center gap-1">
+            <ChevronLeft className="w-4 h-4 text-teal-500 group-hover:scale-110 transition-transform" />
+            Previous Post
+          </span>
+          <span className="font-bold text-black dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 mt-1 line-clamp-2">
+            {prevPost.title}
+          </span>
+        </Link>
+      ) : (
+        // Use hidden on mobile and visibility on desktop to maintain layout without taking space
+        <div className="hidden sm:block w-full mr-4"></div>
+      )}
+
+      {/* Next Post Link */}
+      {nextPost ? (
+        <Link
+          href={`/posts/${nextPost.slug}`}
+          className="flex flex-col p-4 rounded-xl transition-all duration-300 hover:bg-teal-50 dark:hover:bg-teal-900/50 group w-full ml-4 text-right border border-gray-200 dark:border-gray-700"
+        >
+          <span className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center justify-end gap-1">
+            Next Post
+            <ChevronRight className="w-4 h-4 text-teal-500 group-hover:scale-110 transition-transform" />
+          </span>
+          <span className="font-bold text-black dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 mt-1 line-clamp-2">
+            {nextPost.title}
+          </span>
+        </Link>
+      ) : (
+        // Use hidden on mobile and visibility on desktop to maintain layout without taking space
+        <div className="hidden sm:block w-full ml-4"></div>
+      )}
+    </div>
+  );
+};
+
+
+export default function PostPage({ frontmatter, contentHtml, wordCount, readingTime, prevPost, nextPost }) {
+  // Destructure frontmatter
   const { title, date, tags, author = "Vishal Vishwakarma" } = frontmatter;
 
   return (
-    // MODIFIED: Removed flex/md:flex-row/gap-8. Changed padding to p-2 (8px) on mobile for minimal margin.
     <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
 
-      {/* REMOVED: The empty `<aside>` placeholder to allow the article to take full desktop width. */}
-
-      {/* MODIFIED: Removed flex-1 and w-full (redundant now), and changed padding to p-4 (16px) on mobile. */}
       <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
         <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
 
@@ -38,6 +89,22 @@ export default function PostPage({ frontmatter, contentHtml }) {
                 <User className="w-4 h-4 text-teal-500" />
                 {author}
             </Link>
+
+            <span className="text-gray-400 dark:text-gray-600">|</span>
+
+            {/* Reading Time */}
+            <span className="flex items-center gap-1 text-black dark:text-white">
+                <Clock className="w-4 h-4 text-teal-500" />
+                {readingTime} min read
+            </span>
+
+            <span className="text-gray-400 dark:text-gray-600">|</span>
+
+            {/* Word Count */}
+            <span className="flex items-center gap-1 text-black dark:text-white">
+                <BookOpen className="w-4 h-4 text-teal-500" />
+                {wordCount.toLocaleString()} words
+            </span>
 
             {/* Tags with Tag Icon (Only show if tags exist) */}
             {tags && tags.length > 0 && (
@@ -66,12 +133,17 @@ export default function PostPage({ frontmatter, contentHtml }) {
           className="prose dark:prose-invert max-w-none overflow-hidden"
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+
+        {/* Next/Previous Navigation */}
+        <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+
       </article>
     </div>
   );
 }
 
 export async function getStaticPaths() {
+    // ... (unchanged)
     const fs = require("fs");
     const path = require("path");
 
@@ -94,6 +166,7 @@ export async function getStaticProps({ params: { slug } }) {
     const { default: remarkHtml } = await import("remark-html");
     const { default: remarkGfm } = await import("remark-gfm");
 
+    // --- 1. Read Current Post Content ---
     const markdownWithMeta = fs.readFileSync(
       path.join("posts", `${slug}.md`),
       "utf-8"
@@ -107,5 +180,53 @@ export async function getStaticProps({ params: { slug } }) {
 
     const contentHtml = processedContent.toString();
 
-    return { props: { frontmatter, contentHtml } };
+    // --- 2. Calculate Word Count & Reading Time ---
+    const wordCount = content.split(/\s/g).length;
+    const readingTime = Math.ceil(wordCount / 200); // 200 Words Per Minute standard
+
+    // --- 3. Determine Next/Previous Posts ---
+    const files = fs.readdirSync(path.join("posts"));
+
+    // a. Get data for ALL posts to sort them
+    let allPosts = files.map(filename => {
+        const fileSlug = filename.replace(".md", "");
+        const fileContent = fs.readFileSync(path.join("posts", filename), "utf-8");
+        const { data: fileFrontmatter } = matter(fileContent);
+
+        return {
+            slug: fileSlug,
+            title: fileFrontmatter.title,
+            // Use an empty string if date is missing
+            date: fileFrontmatter.date || ''
+        };
+    });
+
+    // b. Sort all posts by date (newest first is typical blog order)
+    allPosts.sort((a, b) => {
+        // Safely convert dates to timestamp for reliable comparison
+        const dateA = new Date(a.date || 0).getTime();
+        const dateB = new Date(b.date || 0).getTime();
+        return dateB - dateA; // Newest first
+    });
+
+    // c. Find the index of the current post
+    const currentIndex = allPosts.findIndex(post => post.slug === slug);
+
+    // d. Determine next and previous posts based on the sorted array
+    // Next is older post (index + 1 in newest-first sort)
+    // Previous is newer post (index - 1 in newest-first sort)
+    const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+    const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+
+
+    return {
+        props: {
+            frontmatter,
+            contentHtml,
+            wordCount,
+            readingTime,
+            prevPost,
+            nextPost
+        }
+    };
 }
