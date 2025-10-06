@@ -10,11 +10,13 @@ export default function PostPage({ frontmatter, contentHtml }) {
   const { title, date, tags, author = "Vishal Vishwakarma" } = frontmatter;
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    // MODIFIED: Removed flex/md:flex-row/gap-8. Changed padding to p-2 (8px) on mobile for minimal margin.
+    <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
 
-      <aside className="hidden md:block w-full md:w-auto">{/* Sidebar */}</aside>
+      {/* REMOVED: The empty `<aside>` placeholder to allow the article to take full desktop width. */}
 
-      <article className="flex-1 w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-8">
+      {/* MODIFIED: Removed flex-1 and w-full (redundant now), and changed padding to p-4 (16px) on mobile. */}
+      <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
         <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
 
         {/* Metadata Section with Icons and Links */}
