@@ -6,8 +6,6 @@ summary: "Understanding the RestController and GetMapping annotations in Spring 
 cover: "/images/example.png"
 ---
 
-# The Heart of Spring Boot APIs: The Controller (Series Part 2)
-
 In Part 1, we established that **Spring Boot** is all about speed and simplicity, getting you past the painful setup and straight to the fun part: writing code that delivers value.
 
 But where does that "value-delivering" code live? In the world of web applications and APIs, it lives in the **Controller**.

@@ -1,6 +1,6 @@
 ---
 title: "Post Number 02"
-date: "2025-10-01"
+date: "06-10-2025"
 tags: ["Examples", "Guides","Java","Spring Boot"]
 summary: "This is your second post and introduction to your new blog theme."
 cover: "/images/example.png"

@@ -1,6 +1,6 @@
 ---
 title: "Hello World"
-date: "2025-10-04"
+date: "04-10-2025"
 tags: ["Examples", "Guides"]
 summary: "This is your first post and introduction to your new blog theme."
 cover: "/images/example.png"

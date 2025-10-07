@@ -6,8 +6,6 @@ summary: "Why Learn Spring Boot? Ditching the Boilerplate for Modern Java Develo
 cover: "/images/example.png"
 ---
 
-## 👋 Welcome: The Dawn of Simple Java
-
 For years, building applications with the powerful Java Spring Framework meant endless, confusing setup. You needed countless XML files, had to manually manage library versions, and spent hours configuring a separate server just to run "Hello World."
 
 **Spring Boot** changes that entire story. It is a lightweight layer built on top of Spring that focuses entirely on **getting you productive immediately.**
@@ -20,11 +18,11 @@ If you’re a developer who values speed, simplicity, and efficiency, here is wh
 
 Spring Boot solved three massive problems that plagued classic Java development. It is the framework's way of saying: "Stop worrying about the infrastructure; start writing your business logic."
 
-| Classic Problem | Spring Boot Solution | How It Helps You |
-| :--- | :--- | :--- |
-| **Configuration Hell** | **Auto-Configuration** | Spring Boot looks at the libraries you add and automatically sets up the basic configuration for you. No more tedious manual setup or guessing settings. |
-| **Dependency Management** | **"Starters"** | Instead of manually adding dozens of libraries and worrying about version conflicts, you just add one **"Starter"** (e.g., `Spring Web`). This single line pulls in a compatible, tested bundle of every library you need for that specific task. |
-| **Complex Deployment** | **Embedded Server** | Spring Boot packages a complete, runnable server (like Tomcat or Jetty) *inside* your application file (a single JAR). You don't need to install or configure an external server; you just run the file. |
+| Classic Problem           | Spring Boot Solution   | How It Helps You                                                                                                                                                                                                                                  |
+|:--------------------------|:-----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Configuration Hell**    | **Auto-Configuration** | Spring Boot looks at the libraries you add and automatically sets up the basic configuration for you. No more tedious manual setup or guessing settings.                                                                                          |
+| **Dependency Management** | **"Starters"**         | Instead of manually adding dozens of libraries and worrying about version conflicts, you just add one **"Starter"** (e.g., `Spring Web`). This single line pulls in a compatible, tested bundle of every library you need for that specific task. |
+| **Complex Deployment**    | **Embedded Server**    | Spring Boot packages a complete, runnable server (like Tomcat or Jetty) *inside* your application file (a single JAR). You don't need to install or configure an external server; you just run the file.                                          |
 
 ---
 
