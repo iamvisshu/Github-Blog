@@ -3,22 +3,66 @@ import Layout from "../components/Layout";
 
 export default function About() {
   return (
+    <div className="max-w-5xl mx-auto px-6 py-12">
 
-      <div className="max-w-4xl mx-auto px-6 py-10">
-        <h1 className="text-4xl font-bold mb-6 text-teal-500">About Me</h1>
-        <p className="mb-4 text-lg text-gray-700 dark:text-gray-300">
-          Welcome to my blog! I'm Vishal Vishwakarma (<code>@iamvisshu</code>), a passionate software developer focused on Java and JavaScript technologies.
+      {/* Title: About Me */}
+      <h1 className="text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600">
+        About Me
+      </h1>
+
+      {/* Section 1: Personal and Core Expertise */}
+      <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
+        <h2 className="text-2xl font-semibold mb-3 text-gray-800 dark:text-white">
+          <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma (<code>@iamvisshu</code>)
+        </h2>
+
+        <p className="mb-3 text-lg text-gray-700 dark:text-gray-300">
+          I am a <strong>Senior Software Developer</strong> driven by a passion for creating <strong>robust and scalable</strong> solutions. My primary focus areas include <strong>Java</strong> development with <strong>SpringBoot</strong> for enterprise backends and <strong>Next.js/React</strong> for high-performance frontend architecture.
         </p>
-        <p className="mb-4 text-lg text-gray-700 dark:text-gray-300">
-          This blog is powered by Next.js and Markdown files, allowing me to write and share tutorials, guides, and insights about software development, programming concepts, and industry trends.
-        </p>
-        <p className="mb-4 text-lg text-gray-700 dark:text-gray-300">
-          Feel free to explore the posts, and connect with me on <a href="https://github.com/iamvisshu" className="text-teal-500 underline" target="_blank" rel="noopener noreferrer">GitHub</a>.
-        </p>
-        <p className="mb-4 text-lg text-gray-700 dark:text-gray-300">
-          Thank you for visiting my blog. I hope you find the content helpful and inspiring!
+        <p className="text-lg text-gray-700 dark:text-gray-300">
+          This blog is where I distill over five years of professional experience into actionable tutorials and insights.
         </p>
       </div>
 
+      {/* Section 2: Blog's Technical Focus */}
+      <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
+        <h2 className="text-2xl font-semibold mb-3 text-gray-800 dark:text-white">
+          <span role="img" aria-label="Code">💻</span> Deep Dives & Tech Focus
+        </h2>
+        <ul className="list-disc list-inside space-y-2 text-lg text-gray-700 dark:text-gray-300 ml-4">
+          <li><strong>Backend Excellence:</strong> Comprehensive guides on Java, Spring Boot, Microservices, and architectural best practices.</li>
+          <li><strong>Frontend Performance:</strong> Exploring modern Next.js, React, and TypeScript for state-of-the-art web applications.</li>
+          <li><strong>Innovation:</strong> Insights into Generative AI integration and leveraging LLMs in development workflows.</li>
+        </ul>
+      </div>
+
+      {/* Section 3: Call to Action and Tech Stack */}
+      <div className="p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
+        <p className="mb-3 text-xl font-medium text-gray-800 dark:text-white">
+          🌐 <strong>The Platform:</strong> Engineered with <strong>Next.js</strong> and powered by <strong>Markdown</strong> files for speed, performance, and a smooth reading experience.
+        </p>
+        <p className="mb-5 text-lg text-gray-700 dark:text-gray-400">
+          Feel free to explore the posts and connect with me to discuss the latest in software architecture.
+        </p>
+        <div className="flex space-x-4">
+          <a
+            href="https://github.com/iamvisshu"
+            className="text-lg font-bold text-white bg-teal-500 hover:bg-teal-600 px-5 py-2 rounded-lg transition duration-300 shadow-md transform hover:scale-105 flex items-center"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span role="img" aria-label="GitHub" className="mr-2">⭐</span> Connect on GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/iamvisshu"
+            className="text-lg font-bold text-teal-500 border-2 border-teal-500 hover:bg-teal-50 dark:hover:bg-gray-700 px-5 py-2 rounded-lg transition duration-300 shadow-md transform hover:scale-105 flex items-center"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span role="img" aria-label="LinkedIn" className="mr-2">♥️</span> Find Me on LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
