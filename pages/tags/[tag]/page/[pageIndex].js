@@ -129,8 +129,8 @@ export async function getStaticProps({ params }) {
     }
   });
 
-  // Sort posts by date (newest first)
-  tagPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Sort posts by date (oldest first)
+  tagPosts.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   // Pagination logic
   const currentPage = parseInt(pageIndex, 10);
