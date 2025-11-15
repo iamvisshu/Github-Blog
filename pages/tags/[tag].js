@@ -53,30 +53,56 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const targetTag = params.tag;
+  const tag = params.tag;
+  const postsDirectory = path.join(process.cwd(), "posts");
+  const files = fs.readdirSync(postsDirectory);
 
-  const files = fs.readdirSync(path.join("posts"));
-  let allPosts = files.map(filename => {
-    const slug = filename.replace(".md", "");
-    const markdownWithMeta = fs.readFileSync(path.join("posts", filename), "utf-8");
-    const { data: frontmatter, content } = matter(markdownWithMeta);
-    return {
-      slug,
-      title: frontmatter.title,
-      date: frontmatter.date,
-      tags: frontmatter.tags || [],
-      summary: frontmatter.summary || content.substr(0, 80) + "...",
-      cover: frontmatter.cover || null,
-    };
-  });
+  // Use Promise.all with async map to await inside
+  const allPosts = await Promise.all(
+    files.map(async (filename) => {
+      const slug = filename.replace(/\.md$/, "");
 
-  // Filter posts to include only those with the target tag
-  const filteredPosts = allPosts.filter(post =>
-    post.tags && post.tags.includes(targetTag)
+      const markdownWithMeta = fs.readFileSync(
+        path.join(postsDirectory, filename),
+        "utf-8"
+      );
+
+      // Dynamic import inside async callback is allowed now
+      const { remark } = await import("remark");
+      const { default: remarkHtml } = await import("remark-html");
+      const { default: remarkGfm } = await import("remark-gfm");
+      const { data, content } = matter(markdownWithMeta);
+
+      const processedContent = await remark()
+        .use(remarkHtml)
+        .use(remarkGfm)
+        .process(content);
+      const contentHtml = processedContent.toString();
+
+      const wordCount = content.split(/\s/g).length;
+      const readingTime = Math.ceil(wordCount / 200); // 200 Words Per Minute standard
+
+      return {
+        slug,
+        title: data.title,
+        date: data.date,
+        tags: data.tags || [],
+        summary: data.summary || content.substr(0, 80) + "...",
+        cover: data.cover || null,
+        wordCount,
+        readingTime,
+      };
+    })
   );
 
-  // Sort by date (oldest first)
-  filteredPosts.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const filteredPosts = allPosts
+    .filter((post) => post.tags.includes(tag))
+    .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date (oldest first)
 
-  return { props: { posts: filteredPosts, tag: targetTag } };
+  return {
+    props: {
+      posts: filteredPosts,
+      tag,
+    },
+  };
 }
