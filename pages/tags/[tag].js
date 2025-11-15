@@ -75,8 +75,8 @@ export async function getStaticProps({ params }) {
     post.tags && post.tags.includes(targetTag)
   );
 
-  // Sort by date (newest first)
-  filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Sort by date (oldest first)
+  filteredPosts.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return { props: { posts: filteredPosts, tag: targetTag } };
 }
