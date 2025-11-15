@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function TagsPage({ tags }) {
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-black mb-4">Tags</h1>
+      <h1 className="text-3xl font-black mb-4">Tags/Topics</h1>
       <div className="flex flex-wrap gap-3">
         {Object.entries(tags).map(([tag, count]) => (
           <Link
