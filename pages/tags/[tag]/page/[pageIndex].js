@@ -114,7 +114,7 @@ export async function getStaticProps({ params }) {
 
     // Filter posts for current tag
     if (data.tags && data.tags.includes(tag)) {
-      const wordCount = content.split(/\s+/).length;
+      const wordCount = content.split(/\s/g).length;
       const readingTime = Math.ceil(wordCount / 200);
       tagPosts.push({
         slug: filename.replace('.md', ''),

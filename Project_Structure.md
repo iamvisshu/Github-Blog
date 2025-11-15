@@ -24,13 +24,17 @@ Github-Blog/
 │   ├── _app.js
 │   ├── about.js
 │   ├── api/
-│   │   └── search-data.js
+│   │   ├── search-data.js
+│   │   └── visitorCount.js
 │   ├── index.js
 │   ├── page/
 │   │   └── [page].js
 │   ├── posts/
 │   │   └── [slug].js
 │   ├── tags/
+│   │   ├── [tag]/
+│   │   │   └── page/
+│   │   │       └── [pageIndex].js
 │   │   └── [tag].js
 │   └── tags.js
 ├── postcss.config.js
