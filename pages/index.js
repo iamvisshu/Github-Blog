@@ -45,17 +45,20 @@ export default function Home({ posts, search = "", numPages, allTags }) {
         content="Explore a wide range of Java programming tutorials, examples, and guides on Vishal's Blog. Learn Java, Spring Boot, REST APIs, and more with practical insights and developer tips."
       />
       <link rel="canonical" href="https://vishalsblog.vercel.app" />
-      {/* Open Graph meta for link previews */}
+        {/* Open Graph meta for link previews */}
         <meta property="og:title" content="Vishal's Blog - Learn and Explore Java Programming" />
         <meta property="og:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
         <meta property="og:image" content="https://vishalsblog.vercel.app/og-image.jpg" />
         <meta property="og:url" content="https://vishalsblog.vercel.app" />
+        <meta property="og:type" content="website" />
 
         {/* Twitter Card for large image preview */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Vishal's Blog - Learn and Explore Java Programming" />
         <meta name="twitter:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
         <meta name="twitter:image" content="https://vishalsblog.vercel.app/og-image.jpg" />
+        <meta property="twitter:domain" content="vishalsblog.vercel.app" />
+        <meta property="twitter:url" content="https://vishalsblog.vercel.app/" />
     </Head>
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
         <Sidebar allTags={allTags} isHomepage={true} />
