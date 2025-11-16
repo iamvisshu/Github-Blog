@@ -12,6 +12,17 @@ export default function About() {
       content="@iamvisshu aka Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding."
     />
     <link rel="canonical" href="https://vishalsblog.vercel.app/about" />
+    {/* Open Graph meta for link previews */}
+      <meta property="og:title" content="Vishal's Blog - Learn and Explore Java Programming" />
+      <meta property="og:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
+      <meta property="og:image" content="https://vishalsblog.vercel.app/og-image.jpg" />
+      <meta property="og:url" content="https://vishalsblog.vercel.app" />
+
+      {/* Twitter Card for large image preview */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Vishal's Blog - Learn and Explore Java Programming" />
+      <meta name="twitter:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
+      <meta name="twitter:image" content="https://vishalsblog.vercel.app/og-image.jpg" />
   </Head>
     <div className="max-w-5xl mx-auto px-6 py-12">
 
