@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "postbuild": "next-sitemap"
+    "build": "next build && next-sitemap",
+    "start": "next start"
   },
   "dependencies": {
     "@upstash/redis": "^1.35.6",
