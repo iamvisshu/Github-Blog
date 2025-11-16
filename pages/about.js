@@ -1,8 +1,18 @@
 import React from "react";
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 export default function About() {
   return (
+  <>
+  <Head>
+    <title>About @iamvisshu aka Vishal Vishwakarma</title>
+    <meta
+      name="description"
+      content="@iamvisshu aka Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding."
+    />
+    <link rel="canonical" href="https://vishalsblog.vercel.app/about" />
+  </Head>
     <div className="max-w-5xl mx-auto px-6 py-12">
 
       {/* Title: About Me */}
@@ -64,5 +74,6 @@ export default function About() {
         </div>
       </div>
     </div>
+    </>
   );
 }

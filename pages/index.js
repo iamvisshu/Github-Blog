@@ -5,6 +5,7 @@ import PostCard from "../components/PostCard";
 import Link from "next/link";
 import Sidebar from "../components/Sidebar";
 import { Calendar, Tag, Clock, BookOpen } from "lucide-react";
+import Head from "next/head";
 
 const POSTS_PER_PAGE = 4;
 
@@ -37,6 +38,14 @@ export default function Home({ posts, search = "", numPages, allTags }) {
 
   return (
     <>
+    <Head>
+      <title>Vishal's Blog - Learn and Explore Java Programming</title>
+      <meta
+        name="description"
+        content="Explore a wide range of Java programming tutorials, examples, and guides on Vishal's Blog. Learn Java, Spring Boot, REST APIs, and more with practical insights and developer tips."
+      />
+      <link rel="canonical" href="https://vishalsblog.vercel.app" />
+    </Head>
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
         <Sidebar allTags={allTags} isHomepage={true} />
         <main className="flex-1 space-y-8">

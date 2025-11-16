@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import PostCard from '../../../../components/PostCard';
 import Sidebar from '../../../../components/Sidebar';
 import Link from 'next/link';
+import Head from "next/head";
 
 const POSTS_PER_PAGE = 3;
 
@@ -31,6 +32,18 @@ const Pagination = ({ numPages, currentPage, tag }) => {
 
 export default function TagPostsPaginated({ posts, tag, numPages, currentPage, allTags }) {
   return (
+  <>
+    <Head>
+      <title>{`Posts Tagged: ${tag} - Page ${currentPage} | Vishal's Blog`}</title>
+      <meta
+        name="description"
+        content={`Explore page ${currentPage} of posts tagged ${tag} on Vishal's Blog.`}
+      />
+      <link
+        rel="canonical"
+        href={`https://vishalsblog.vercel.app/tags/${tag}/page/${currentPage}`}
+      />
+    </Head>
     <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
       <Sidebar allTags={allTags} isHomepage={false} />
       <main className="flex-1 space-y-8">
@@ -55,6 +68,7 @@ export default function TagPostsPaginated({ posts, tag, numPages, currentPage, a
         </div>
       </main>
     </div>
+    </>
   );
 }
 

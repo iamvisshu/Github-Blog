@@ -2,9 +2,19 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function TagsPage({ tags }) {
   return (
+  <>
+  <Head>
+    <title>Vishal's Blog - Learn and Explore Java Programming</title>
+    <meta
+      name="description"
+      content="Explore a wide range of Java programming tutorials, examples, and guides on Vishal's Blog. Learn Java, Spring Boot, REST APIs, and more with practical insights and developer tips."
+    />
+    <link rel="canonical" href="https://vishalsblog.vercel.app/tags" />
+  </Head>
     <div className="p-8">
       <h1 className="text-3xl font-black mb-4">Tags/Topics</h1>
       <div className="flex flex-wrap gap-3">
@@ -19,6 +29,7 @@ export default function TagsPage({ tags }) {
         ))}
       </div>
     </div>
+    </>
   );
 }
 

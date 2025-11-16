@@ -10,6 +10,7 @@ import {
     ChevronLeft,
     ChevronRight
 } from "lucide-react";
+import Head from "next/head";
 
 // NOTE: These imports are left at the top for the main component rendering.
 // Dynamic imports are used inside getStaticProps for build compatibility.
@@ -62,9 +63,15 @@ const PostNavigation = ({ prevPost, nextPost }) => {
 
 export default function PostPage({ frontmatter, contentHtml, wordCount, readingTime, prevPost, nextPost }) {
   // Destructure frontmatter
-  const { title, date, tags, author = "Vishal Vishwakarma" } = frontmatter;
+  const { title, summary, slug, date, tags, author = "Vishal Vishwakarma" } = frontmatter;
 
   return (
+  <>
+    <Head>
+      <title>{title} | Vishal's Blog</title>
+      <meta name="description" content={ summary || "Read this article on Vishal's Blog - Vishal Vishwakarma's blog." } />
+      <link rel="canonical" href={`https://vishalsblog.vercel.app/posts/${slug || ""}`} />
+    </Head>
     <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
 
       <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
@@ -139,6 +146,7 @@ export default function PostPage({ frontmatter, contentHtml, wordCount, readingT
 
       </article>
     </div>
+    </>
   );
 }
 
