@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Image from "next/image";
 
 const HEADER_IMAGE = "/images/header.webp";
 
@@ -68,10 +69,13 @@ export default function Layout({ children }) {
         }}
       />
       <div className="relative w-full h-40 md:h-52 bg-gray-200 dark:bg-gray-900 mb-8">
-        <img
+        <Image
           src={HEADER_IMAGE}
           alt="Header"
+          width={721}
+          height={481}
           className="object-cover w-full h-full rounded-3xl"
+          priority
         />
       </div>
       <main className="min-h-screen">{children}</main>
