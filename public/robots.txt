@@ -1,6 +1,5 @@
-# *
 User-agent: *
-Allow: /
+Disallow:
 
-# Sitemaps
+# Sitemap files
 Sitemap: https://vishalsblog.vercel.app/sitemap.xml
