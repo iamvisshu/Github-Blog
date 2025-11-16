@@ -17,6 +17,7 @@ Github-Blog/
 │   ├── PostCard.js
 │   └── Sidebar.js
 ├── LICENSE
+├── next-sitemap.config.js
 ├── next.config.js
 ├── package-lock.json
 ├── package.json
@@ -46,11 +47,15 @@ Github-Blog/
 │   └── PostNumber02.md
 ├── Project_Structure.md
 ├── public/
-│   └── images/
-│       ├── avatar.jpg
-│       ├── example.png
-│       ├── favicon.ico
-│       └── header.webp
+│   ├── google1bc1018399c0d0c7.html
+│   ├── images/
+│   │   ├── avatar.jpg
+│   │   ├── example.png
+│   │   ├── favicon.ico
+│   │   └── header.webp
+│   ├── robots.txt
+│   ├── sitemap-0.xml
+│   └── sitemap.xml
 ├── README.md
 ├── styles/
 │   └── globals.css
