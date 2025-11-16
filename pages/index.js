@@ -48,7 +48,7 @@ export default function Home({ posts, search = "", numPages, allTags }) {
         {/* Open Graph meta for link previews */}
         <meta property="og:title" content="Vishal's Blog - Learn and Explore Java Programming" />
         <meta property="og:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
-        <meta property="og:image" content="https://vishalsblog.vercel.app/og-image.jpg" />
+        <meta property="og:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
         <meta property="og:url" content="https://vishalsblog.vercel.app" />
         <meta property="og:type" content="website" />
 
@@ -56,7 +56,7 @@ export default function Home({ posts, search = "", numPages, allTags }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Vishal's Blog - Learn and Explore Java Programming" />
         <meta name="twitter:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
-        <meta name="twitter:image" content="https://vishalsblog.vercel.app/og-image.jpg" />
+        <meta name="twitter:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
         <meta property="twitter:domain" content="vishalsblog.vercel.app" />
         <meta property="twitter:url" content="https://vishalsblog.vercel.app/" />
     </Head>
