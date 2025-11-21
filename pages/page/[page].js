@@ -68,6 +68,11 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
+function parseDDMMYYYY(dateStr) {
+  const [day, month, year] = dateStr.split("-");
+  return new Date(`${year}-${month}-${day}`);
+}
+
 export async function getStaticProps({ params }) {
   const currentPage = parseInt(params.page);
   const files = fs.readdirSync(path.join("posts"));
@@ -99,8 +104,8 @@ export async function getStaticProps({ params }) {
     };
   });
 
-  // 1. Sort posts by date (newest first)
-  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // 1. Sort posts by oldest date → newest date
+  posts.sort((a, b) => parseDDMMYYYY(a.date) - parseDDMMYYYY(b.date));
 
   // 2. Calculate pagination indices
   const numPages = Math.ceil(posts.length / POSTS_PER_PAGE);
