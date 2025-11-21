@@ -7,8 +7,8 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <Head>
+        {/* Keep viewport and title here; favicon is added in _document.js for SSR */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="images/favicon.ico" />
         <title>Vishal's Blog</title>
       </Head>
       <Layout>
