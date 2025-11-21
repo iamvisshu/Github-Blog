@@ -40,7 +40,7 @@ export default function Sidebar({ allTags, isHomepage = false }) {
         />
 
         <div className="flex items-center gap-1 mb-3">
-            <p className="font-bold text-xl text-black dark:text-white">iamvisshu</p>
+            <p className="font-bold text-xl text-black dark:text-white">@iamvisshu</p>
             <BadgeCheck
                 className="w-5 h-5 text-white fill-blue-500 dark:fill-blue-400"
                 strokeWidth={2.5}

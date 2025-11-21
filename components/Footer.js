@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="text-sm font-semibold text-center">
           {visitors !== null ? (
             <>
-              Visitors count:{" "}
+              Website visitors count:{" "}
               <span className="text-indigo-600 dark:text-indigo-400">
                 {visitors.toLocaleString()}
               </span>

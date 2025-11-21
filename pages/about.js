@@ -37,7 +37,7 @@ export default function About() {
       {/* Section 1: Personal and Core Expertise */}
       <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
         <h2 className="text-2xl font-semibold mb-3 text-gray-800 dark:text-white">
-          <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma (<code>@iamvisshu</code>)
+          <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma (@iamvisshu)
         </h2>
 
         <p className="mb-3 text-lg text-gray-700 dark:text-gray-300">
