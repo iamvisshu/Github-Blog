@@ -4,13 +4,15 @@ date: "07-10-2025"
 tags: ["Java","Spring Boot"]
 summary: "Why Learn Spring Boot? Ditching the Boilerplate for Modern Java Development (Series)."
 cover: "/images/example.png"
+series: "Spring Boot APIs"
+part: 1
 ---
 
 For years, building applications with the powerful Java Spring Framework meant endless, confusing setup. You needed countless XML files, had to manually manage library versions, and spent hours configuring a separate server just to run "Hello World."
 
 **Spring Boot** changes that entire story. It is a lightweight layer built on top of Spring that focuses entirely on **getting you productive immediately.**
 
-If you’re a developer who values speed, simplicity, and efficiency, here is why Spring Boot is the essential tool in the modern Java landscape.
+If you're a developer who values speed, simplicity, and efficiency, here is why Spring Boot is the essential tool in the modern Java landscape.
 
 ---
 

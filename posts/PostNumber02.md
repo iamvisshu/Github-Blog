@@ -4,6 +4,8 @@ date: "06-10-2025"
 tags: ["Examples", "Guides","Java","Spring Boot"]
 summary: "This is your second post and introduction to your new blog theme."
 cover: "/images/example.png"
+series: "Java Series"
+part: 2
 ---
 # Welcome to your Next.js Markdown Blog!
 

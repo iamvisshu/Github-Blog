@@ -4,6 +4,8 @@ date: "05-10-2025"
 tags: ["Examples", "Guides","Java"]
 summary: "This is your second post and introduction to your new blog theme."
 cover: "/images/example.png"
+series: "Java Series"
+part: 1
 ---
 # Welcome to your Next.js Markdown Blog!
 

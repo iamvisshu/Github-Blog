@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Tag, Clock, BookOpen } from "lucide-react";
 
-export default function PostCard({ slug, title, date, summary, tags, cover, wordCount, readingTime }) {
+export default function PostCard({ slug, title, date, summary, tags, cover, wordCount, readingTime, series = null, part = null, seriesCount = null }) {
   return (
     <div
         key={slug}
@@ -26,6 +26,14 @@ export default function PostCard({ slug, title, date, summary, tags, cover, word
                     {title}
                 </h2>
             </Link>
+
+            {/* Series indicator (optional) */}
+            {series && part && (
+                <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    <span className="font-medium text-teal-600">{series}</span>
+                    <span className="text-gray-500 dark:text-gray-400">  •  Part {part}{seriesCount ? ` of ${seriesCount}` : ''}</span>
+                </div>
+            )}
 
             {/* Post meta (date, time to read, word count, tags) */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-300 mb-3">

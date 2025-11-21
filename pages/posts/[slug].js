@@ -1,254 +1,317 @@
 import matter from "gray-matter";
 import Link from "next/link";
-// Ensure ALL Lucide icons are imported from lucide-react (the correct package)
 import {
-    Calendar,
-    Tag,
-    User,
-    Clock,
-    BookOpen,
-    ChevronLeft,
-    ChevronRight
+  Calendar,
+  Tag,
+  User,
+  Clock,
+  BookOpen,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import Head from "next/head";
+import SeriesBox from "../../components/SeriesBox";
 
-// NOTE: These imports are left at the top for the main component rendering.
-// Dynamic imports are used inside getStaticProps for build compatibility.
-
-// Helper component for Next/Previous Navigation
 const PostNavigation = ({ prevPost, nextPost }) => {
+  // Single row on mobile: use flex-row and allow wrapping if very narrow.
+  // Reduce padding and font-size for mobile with responsive classes.
   return (
-    <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
-      {/* Previous Post Link */}
-      {prevPost ? (
-        <Link
-          href={`/posts/${prevPost.slug}`}
-          className="flex flex-col p-4 rounded-xl transition-all duration-300 hover:bg-teal-50 dark:hover:bg-teal-900/50 group w-full mr-4 border border-gray-200 dark:border-gray-700"
-        >
-          <span className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center gap-1">
-            <ChevronLeft className="w-4 h-4 text-teal-500 group-hover:scale-110 transition-transform" />
-            Previous Post
-          </span>
-          <span className="font-bold text-black dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 mt-1 line-clamp-2">
-            {prevPost.title}
-          </span>
-        </Link>
-      ) : (
-        // Use hidden on mobile and visibility on desktop to maintain layout without taking space
-        <div className="hidden sm:block w-full mr-4"></div>
-      )}
+    <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex flex-row flex-wrap gap-3">
+        {/* Previous Post */}
+        {prevPost ? (
+          <Link
+            href={`/posts/${prevPost.slug}`}
+            className="flex items-center gap-3 justify-start p-3 md:p-4 rounded-xl transition-all duration-200 hover:bg-teal-50 dark:hover:bg-teal-900/50 border border-gray-200 dark:border-gray-700 flex-1 min-w-0"
+          >
+            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-600 shrink-0">
+              <ChevronLeft className="w-4 h-4" />
+            </div>
+            <div className="text-left min-w-0">
+              <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Previous Post</div>
+              <div className="font-bold text-sm md:text-base text-black dark:text-white truncate">
+                {prevPost.title}
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <div className="hidden md:block flex-1" />
+        )}
 
-      {/* Next Post Link */}
-      {nextPost ? (
-        <Link
-          href={`/posts/${nextPost.slug}`}
-          className="flex flex-col p-4 rounded-xl transition-all duration-300 hover:bg-teal-50 dark:hover:bg-teal-900/50 group w-full ml-4 text-right border border-gray-200 dark:border-gray-700"
-        >
-          <span className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center justify-end gap-1">
-            Next Post
-            <ChevronRight className="w-4 h-4 text-teal-500 group-hover:scale-110 transition-transform" />
-          </span>
-          <span className="font-bold text-black dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 mt-1 line-clamp-2">
-            {nextPost.title}
-          </span>
-        </Link>
-      ) : (
-        // Use hidden on mobile and visibility on desktop to maintain layout without taking space
-        <div className="hidden sm:block w-full ml-4"></div>
-      )}
+        {/* Next Post */}
+        {nextPost ? (
+          <Link
+            href={`/posts/${nextPost.slug}`}
+            className="flex items-center gap-3 justify-end p-3 md:p-4 rounded-xl transition-all duration-200 hover:bg-teal-50 dark:hover:bg-teal-900/50 border border-gray-200 dark:border-gray-700 flex-1 min-w-0"
+          >
+            <div className="text-right min-w-0 mr-2">
+              <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Next Post</div>
+              <div className="font-bold text-sm md:text-base text-black dark:text-white truncate">
+                {nextPost.title}
+              </div>
+            </div>
+            <div className="flex items-center justify-center w-9 h-9 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-600 shrink-0">
+              <ChevronRight className="w-4 h-4" />
+            </div>
+          </Link>
+        ) : (
+          <div className="hidden md:block flex-1" />
+        )}
+      </div>
     </div>
   );
 };
 
+export default function PostPage({
+  slug,
+  frontmatter,
+  contentHtml,
+  wordCount,
+  readingTime,
+  prevPost,
+  nextPost,
+  seriesPosts = [],
+  seriesTitle = null
+}) {
+  // Safe title/summary
+  const rawTitle = frontmatter?.title ?? "";
+  const safeTitle = Array.isArray(rawTitle)
+    ? rawTitle.join(" ")
+    : (typeof rawTitle === "string" ? rawTitle : String(rawTitle));
 
-export default function PostPage({ frontmatter, contentHtml, wordCount, readingTime, prevPost, nextPost }) {
-  // Destructure frontmatter
-  const { title, summary, slug, date, tags, author = "Vishal Vishwakarma" } = frontmatter;
+  const rawSummary = frontmatter?.summary ?? "";
+  const safeSummary = Array.isArray(rawSummary)
+    ? rawSummary.join(" ")
+    : (typeof rawSummary === "string" ? rawSummary : String(rawSummary));
+
+  const pageTitle = `${safeTitle} | Vishal's Blog`;
+  const canonicalUrl = `https://vishalsblog.vercel.app/posts/${encodeURIComponent(slug || "")}`;
+
+  const {
+    title,
+    date,
+    tags,
+    author = "Vishal Vishwakarma"
+  } = frontmatter || {};
+
+  const currentSlug = slug;
 
   return (
-  <>
-    <Head>
-      <title>{title} | Vishal's Blog</title>
-      <meta name="description" content={ summary || "Read this article on Vishal's Blog - Vishal Vishwakarma's blog." } />
-      <link rel="canonical" href={`https://vishalsblog.vercel.app/posts/${slug || ""}`} />
-      {/* Open Graph meta for link previews */}
-      <meta property="og:title" content="Vishal's Blog - Learn and Explore Java Programming" />
-      <meta property="og:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
-      <meta property="og:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
-      <meta property="og:url" content="https://vishalsblog.vercel.app" />
-      <meta property="og:type" content="website" />
+    <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={safeSummary} />
+        <link rel="canonical" href={canonicalUrl} />
 
-      {/* Twitter Card for large image preview */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Vishal's Blog - Learn and Explore Java Programming" />
-      <meta name="twitter:description" content="Explore tutorials, guides, and Java programming examples on Vishal's Blog." />
-      <meta name="twitter:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
-      <meta property="twitter:domain" content="vishalsblog.vercel.app" />
-      <meta property="twitter:url" content="https://vishalsblog.vercel.app/" />
-    </Head>
-    <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={safeSummary} />
+        <meta property="og:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
 
-      <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
-        <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={safeSummary} />
+        <meta name="twitter:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
+      </Head>
 
-        {/* Metadata Section with Icons and Links */}
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6 border-b pb-4">
+      <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
+          <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
 
-            {/* Date with Calendar Icon */}
+          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6 border-b pb-4">
             <span className="flex items-center gap-1 text-black dark:text-white">
-                <Calendar className="w-4 h-4 text-teal-500" />
-                {date}
+              <Calendar className="w-4 h-4 text-teal-500" />
+              {date}
             </span>
 
             <span className="text-gray-400 dark:text-gray-600">|</span>
 
-            {/* Author Name wrapped in Link to /about */}
             <Link
-                href="/about"
-                className="flex items-center gap-1 text-black dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors cursor-pointer"
+              href="/about"
+              className="flex items-center gap-1 text-black dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
             >
-                <User className="w-4 h-4 text-teal-500" />
-                {author}
+              <User className="w-4 h-4 text-teal-500" />
+              {author}
             </Link>
 
             <span className="text-gray-400 dark:text-gray-600">|</span>
 
-            {/* Reading Time */}
             <span className="flex items-center gap-1 text-black dark:text-white">
-                <Clock className="w-4 h-4 text-teal-500" />
-                {readingTime} min read
+              <Clock className="w-4 h-4 text-teal-500" />
+              {readingTime} min read
             </span>
 
             <span className="text-gray-400 dark:text-gray-600">|</span>
 
-            {/* Word Count */}
             <span className="flex items-center gap-1 text-black dark:text-white">
-                <BookOpen className="w-4 h-4 text-teal-500" />
-                {wordCount.toLocaleString()} words
+              <BookOpen className="w-4 h-4 text-teal-500" />
+              {wordCount.toLocaleString()} words
             </span>
 
-            {/* Tags with Tag Icon (Only show if tags exist) */}
             {tags && tags.length > 0 && (
-                <>
-                    <span className="text-gray-400 dark:text-gray-600">|</span>
-                    <span className="flex items-center gap-1 text-black dark:text-white">
-                        <Tag className="w-4 h-4 text-teal-500" />
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                        {tags.map(tag => (
-                            <Link
-                                key={tag}
-                                href={`/tags/${tag}`}
-                                className="bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 rounded px-2 py-0.5 cursor-pointer hover:bg-indigo-200 dark:hover:bg-indigo-700 transition"
-                            >
-                                {tag}
-                            </Link>
-                        ))}
-                    </div>
-                </>
+              <>
+                <span className="text-gray-400 dark:text-gray-600">|</span>
+                <span className="flex items-center gap-1 text-black dark:text-white">
+                  <Tag className="w-4 h-4 text-teal-500" />
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {tags.map(tag => (
+                    <Link
+                      key={tag}
+                      href={`/tags/${tag}`}
+                      className="bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 rounded px-2 py-0.5 hover:bg-indigo-200 dark:hover:bg-indigo-700"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+              </>
             )}
-        </div>
+          </div>
 
-        {/* Post Content */}
-        <div
-          className="prose dark:prose-invert max-w-none overflow-hidden"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
+          {/* Series box */}
+          {seriesTitle && seriesPosts.length > 0 && (
+            <SeriesBox
+              title={seriesTitle}
+              posts={seriesPosts}
+              currentSlug={currentSlug}
+            />
+          )}
 
-        {/* Next/Previous Navigation */}
-        <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+          {/* Content */}
+          <div
+            className="prose dark:prose-invert max-w-none overflow-hidden"
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
+          />
 
-      </article>
-    </div>
+          {/* Navigation (we purposely pass prev/next computed in getStaticProps) */}
+          <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+        </article>
+      </div>
     </>
   );
 }
 
 export async function getStaticPaths() {
-    // ... (unchanged)
-    const fs = require("fs");
-    const path = require("path");
+  const fs = require("fs");
+  const path = require("path");
 
-    const files = fs.readdirSync(path.join("posts"));
-    const paths = files.map(filename => ({
-      params: { slug: filename.replace(".md", "") }
-    }));
+  const files = fs.readdirSync(path.join("posts"));
+  const paths = files.map(filename => ({
+    params: { slug: filename.replace(".md", "") }
+  }));
 
-    return { paths, fallback: false };
+  return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params: { slug } }) {
-    // Standard Node/CJS modules can use require
-    const fs = require("fs");
-    const path = require("path");
-    const matter = require("gray-matter");
+  const fs = require("fs");
+  const path = require("path");
+  const matter = require("gray-matter");
 
-    // Dynamic imports for modern ESM modules (required for Next.js build)
-    const { remark } = await import("remark");
-    const { default: remarkHtml } = await import("remark-html");
-    const { default: remarkGfm } = await import("remark-gfm");
+  const { remark } = await import("remark");
+  const { default: remarkHtml } = await import("remark-html");
+  const { default: remarkGfm } = await import("remark-gfm");
 
-    // --- 1. Read Current Post Content ---
-    const markdownWithMeta = fs.readFileSync(
-      path.join("posts", `${slug}.md`),
-      "utf-8"
-    );
-    const { data: frontmatter, content } = matter(markdownWithMeta);
+  const markdownWithMeta = fs.readFileSync(
+    path.join("posts", `${slug}.md`),
+    "utf-8"
+  );
 
-    const processedContent = await remark()
-      .use(remarkHtml)
-      .use(remarkGfm)
-      .process(content);
+  const { data: frontmatter, content } = matter(markdownWithMeta);
 
-    const contentHtml = processedContent.toString();
+  const processedContent = await remark()
+    .use(remarkHtml)
+    .use(remarkGfm)
+    .process(content);
 
-    // --- 2. Calculate Word Count & Reading Time ---
-    const wordCount = content.split(/\s/g).length;
-    const readingTime = Math.ceil(wordCount / 200); // 200 Words Per Minute standard
+  const contentHtml = processedContent.toString();
 
-    // --- 3. Determine Next/Previous Posts ---
-    const files = fs.readdirSync(path.join("posts"));
+  const wordCount = content.split(/\s/g).length;
+  const readingTime = Math.ceil(wordCount / 200);
 
-    // a. Get data for ALL posts to sort them
-    let allPosts = files.map(filename => {
-        const fileSlug = filename.replace(".md", "");
-        const fileContent = fs.readFileSync(path.join("posts", filename), "utf-8");
-        const { data: fileFrontmatter } = matter(fileContent);
+  const files = fs.readdirSync(path.join("posts"));
 
-        return {
-            slug: fileSlug,
-            title: fileFrontmatter.title,
-            // Use an empty string if date is missing
-            date: fileFrontmatter.date || ''
-        };
-    });
-
-    // b. Sort all posts by date (newest first is typical blog order)
-    allPosts.sort((a, b) => {
-        // Safely convert dates to timestamp for reliable comparison
-        const dateA = new Date(a.date || 0).getTime();
-        const dateB = new Date(b.date || 0).getTime();
-        return dateB - dateA; // Newest first
-    });
-
-    // c. Find the index of the current post
-    const currentIndex = allPosts.findIndex(post => post.slug === slug);
-
-    // d. Determine next and previous posts based on the sorted array
-    // Next is older post (index + 1 in newest-first sort)
-    // Previous is newer post (index - 1 in newest-first sort)
-    const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-    const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-
+  // Build site-wide posts array (used as fallback ordering)
+  let allPosts = files.map(filename => {
+    const fileSlug = filename.replace(".md", "");
+    const fileContent = fs.readFileSync(path.join("posts", filename), "utf-8");
+    const { data: fm } = matter(fileContent);
 
     return {
-        props: {
-            frontmatter,
-            contentHtml,
-            wordCount,
-            readingTime,
-            prevPost,
-            nextPost
-        }
+      slug: fileSlug,
+      title: fm.title,
+      date: fm.date || ""
     };
+  });
+
+  // sort by date (newest first)
+  allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // --- SERIES MAP (group by series name) ---
+  const seriesMap = {};
+  files.forEach(filename => {
+    const fileSlug = filename.replace(".md", "");
+    const fileContent = fs.readFileSync(path.join("posts", filename), "utf-8");
+    const { data: fm } = matter(fileContent);
+
+    if (fm && fm.series) {
+      if (!seriesMap[fm.series]) seriesMap[fm.series] = [];
+      seriesMap[fm.series].push({
+        slug: fileSlug,
+        title: fm.title || fileSlug,
+        part: fm.part !== undefined ? Number(fm.part) : null
+      });
+    }
+  });
+
+  // sort each series by part (nulls last) and fallback deterministically by slug
+  Object.keys(seriesMap).forEach(k => {
+    seriesMap[k].sort((a, b) => {
+      const pa = a.part === null ? Number.MAX_SAFE_INTEGER : a.part;
+      const pb = b.part === null ? Number.MAX_SAFE_INTEGER : b.part;
+      if (pa !== pb) return pa - pb;
+      return a.slug.localeCompare(b.slug);
+    });
+  });
+
+  // Determine prev/next using series order when the current post is part of a series
+  const currentSeriesTitle = frontmatter.series || null;
+  const seriesPosts = currentSeriesTitle ? (seriesMap[currentSeriesTitle] || []) : [];
+
+  let prevPost = null;
+  let nextPost = null;
+
+  if (seriesPosts.length > 0) {
+    // find current index in series
+    const idx = seriesPosts.findIndex(p => p.slug === slug);
+    if (idx !== -1) {
+      if (idx > 0) prevPost = { slug: seriesPosts[idx - 1].slug, title: seriesPosts[idx - 1].title };
+      if (idx < seriesPosts.length - 1) nextPost = { slug: seriesPosts[idx + 1].slug, title: seriesPosts[idx + 1].title };
+    }
+  }
+
+  // fallback: if not in series or prev/next missing, use site-wide date order
+  if (!prevPost || !nextPost) {
+    const currentIndex = allPosts.findIndex(post => post.slug === slug);
+    const prevByDate = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null; // older
+    const nextByDate = currentIndex > 0 ? allPosts[currentIndex - 1] : null; // newer
+    if (!prevPost && prevByDate) prevPost = { slug: prevByDate.slug, title: prevByDate.title };
+    if (!nextPost && nextByDate) nextPost = { slug: nextByDate.slug, title: nextByDate.title };
+  }
+
+  return {
+    props: {
+      slug,
+      frontmatter,
+      contentHtml,
+      wordCount,
+      readingTime,
+      prevPost,
+      nextPost,
+      seriesPosts,
+      seriesTitle: currentSeriesTitle
+    }
+  };
 }
