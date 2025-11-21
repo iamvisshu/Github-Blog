@@ -14,12 +14,12 @@ export default function Header({
   // NEW PROP RECEIVED
   searchPerformed = false
 }) {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
-  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
+  const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -98,7 +98,7 @@ export default function Header({
           aria-label="Toggle Dark Mode"
         >
           {/* Icons from Lucide */}
-          {mounted && (theme === "dark" ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-indigo-600" />)}
+          {mounted && (resolvedTheme === "dark" ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-indigo-600" />)}
         </button>
       </div>
 
@@ -142,7 +142,7 @@ export default function Header({
             aria-label="Toggle Dark Mode"
           >
             {/* Icons from Lucide */}
-            {mounted && (theme === "dark" ? (
+            {mounted && (resolvedTheme === "dark" ? (
               <>
                 <Sun className="w-5 h-5 text-yellow-400" />
                 <span>Switch to Light Mode</span>
