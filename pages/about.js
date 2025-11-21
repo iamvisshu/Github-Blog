@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
+import { BadgeCheck } from 'lucide-react';
 
 export default function About() {
   return (
@@ -36,9 +37,19 @@ export default function About() {
 
       {/* Section 1: Personal and Core Expertise */}
       <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
-        <h2 className="text-2xl font-semibold mb-3 text-gray-800 dark:text-white">
-          <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma (@iamvisshu)
-        </h2>
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white flex flex-wrap items-center">
+            <span className="whitespace-nowrap">
+                <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma
+            </span>
+            <span className="flex items-center gap-2">
+                (@iamvisshu)
+                <BadgeCheck
+                    className="w-5 h-5 text-white fill-blue-500 dark:fill-blue-400"
+                    strokeWidth={2.5}
+                />
+            </span>
+          </h2>
+          <div className="mb-3"></div>
 
         <p className="mb-3 text-lg text-gray-700 dark:text-gray-300">
           I am a <strong>Senior Software Developer</strong> driven by a passion for creating <strong>robust and scalable</strong> solutions. My primary focus areas include <strong>Java</strong> development with <strong>SpringBoot</strong> for enterprise backends and <strong>Next.js/React</strong> for high-performance frontend architecture.
