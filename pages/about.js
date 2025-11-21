@@ -79,10 +79,11 @@ export default function About() {
         <p className="mb-5 text-lg text-gray-700 dark:text-gray-400">
           Feel free to explore the posts and connect with me to discuss the latest in software architecture.
         </p>
-        <div className="flex space-x-4">
+        <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
           <a
             href="https://github.com/iamvisshu"
-            className="text-lg font-bold text-white bg-teal-500 hover:bg-teal-600 px-5 py-2 rounded-lg transition duration-300 shadow-md transform hover:scale-105 flex items-center"
+            // Use w-full on small screens to make it a block element
+            className="w-full text-lg font-bold text-white bg-teal-500 hover:bg-teal-600 px-5 py-3 rounded-lg transition duration-300 shadow-md transform hover:scale-105 flex items-center justify-center md:w-auto md:py-2"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -90,7 +91,8 @@ export default function About() {
           </a>
           <a
             href="https://www.linkedin.com/in/iamvisshu"
-            className="text-lg font-bold text-teal-500 border-2 border-teal-500 hover:bg-teal-50 dark:hover:bg-gray-700 px-5 py-2 rounded-lg transition duration-300 shadow-md transform hover:scale-105 flex items-center"
+            // Use w-full on small screens to make it a block element
+            className="w-full text-lg font-bold text-teal-500 border-2 border-teal-500 hover:bg-teal-50 dark:hover:bg-gray-700 px-5 py-3 rounded-lg transition duration-300 shadow-md transform hover:scale-105 flex items-center justify-center md:w-auto md:py-2"
             target="_blank"
             rel="noopener noreferrer"
           >
