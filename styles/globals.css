@@ -46,3 +46,30 @@
       @apply bg-gray-50 dark:bg-gray-700/50;
     }
 }
+
+/* Smooth sidebar tag collapse / expand (updated) */
+.collapsible-container {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease;
+  opacity: 1;
+}
+
+/* Collapsed (partial) — shows ~7-8 tags depending on pill size; adjust if needed */
+.collapsible-container.collapsed {
+  max-height: 140px; /* <- controls how many tags show in collapsed state; tweak this */
+  padding-bottom: 0.25rem;
+  opacity: 1;
+}
+
+/* Expanded (all tags visible) */
+.collapsible-container.expanded {
+  max-height: 800px; /* large enough to show full list — adjust if you have many tags */
+  opacity: 1;
+}
+
+/* Optional: fully hide (not used by current Sidebar.js) */
+.collapsible-container.fully-collapsed {
+  max-height: 0;
+  padding-bottom: 0;
+  opacity: 0;
+}
