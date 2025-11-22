@@ -73,3 +73,9 @@
   padding-bottom: 0;
   opacity: 0;
 }
+
+/* Series box inner transition (smooth measured collapse/expand) */
+.series-inner {
+  transition: max-height 0.32s ease, opacity 0.28s ease;
+  will-change: max-height, opacity;
+}

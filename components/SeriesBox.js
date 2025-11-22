@@ -1,129 +1,152 @@
+// components/SeriesBox.js
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { BookOpen, AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
-import { useState, useEffect } from "react";
+import { BookOpen, ChevronUp } from "lucide-react";
 
 /**
  * SeriesBox
  * Props:
  *  - title: string (series title)
- *  - posts: [{ title, slug, part }] ordered by part ascending (from getStaticProps)
- *  - currentSlug: string
+ *  - part: number (current part index, 1-based)
+ *  - total: number (total parts in series)
+ *  - items: Array<{ title, slug, part? }>
+ *  - currentSlug: string (slug of current post)
  */
-export default function SeriesBox({ title, posts = [], currentSlug }) {
-  if (!title || !posts || posts.length === 0) return null;
+export default function SeriesBox({ title, part, total, items = [], currentSlug }) {
+  const [open, setOpen] = useState(true);
+  const innerRef = useRef(null);
+  const [maxHeight, setMaxHeight] = useState("none");
 
-  // Detect duplicate part numbers
-  const partCounts = posts.reduce((acc, p) => {
-    const k = p.part !== null && p.part !== undefined ? String(p.part) : "";
-    acc[k] = (acc[k] || 0) + 1;
-    return acc;
-  }, {});
-  const hasDuplicates = Object.values(partCounts).some(c => c > 1);
+  const measureAndOpen = useCallback(() => {
+    if (!innerRef.current) return;
+    const scrollH = innerRef.current.scrollHeight;
+    setMaxHeight(`${scrollH}px`);
+    // after transition remove maxHeight to allow natural growth
+    setTimeout(() => setMaxHeight("none"), 320);
+  }, []);
 
-  // Build displayPosts with fallback ordering if parts duplicate or missing
-  const displayPosts = posts.map((p, idx) => {
-    const preferredPart = p.part !== null && p.part !== undefined ? Number(p.part) : null;
-    return {
-      ...p,
-      preferredPart,
-      // displayPart not printed before each title (we rely on <ol> numbering),
-      // but compute it for "Part X of Y".
-      displayPart: preferredPart || (idx + 1)
+  const measureAndClose = useCallback(() => {
+    if (!innerRef.current) {
+      setMaxHeight("0px");
+      return;
+    }
+    const scrollH = innerRef.current.scrollHeight;
+    // set measured height then collapse to 0 so CSS animates
+    setMaxHeight(`${scrollH}px`);
+    setTimeout(() => setMaxHeight("0px"), 20);
+  }, []);
+
+  useEffect(() => {
+    // set initial state measurement
+    if (open) measureAndOpen();
+    else setMaxHeight("0px");
+
+    const onResize = () => {
+      if (open) measureAndOpen();
     };
-  });
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open, measureAndOpen]);
 
-  // Persist collapse state
-  const storageKey = `seriesbox:${title}:collapsed`;
-  const [collapsed, setCollapsed] = useState(false);
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(storageKey);
-      if (raw !== null) setCollapsed(JSON.parse(raw));
-    } catch (e) {}
-  }, [storageKey]);
+  const toggle = () => {
+    if (open) {
+      // close
+      measureAndClose();
+      setOpen(false);
+    } else {
+      // open
+      setOpen(true);
+      // measure then remove constraint
+      setTimeout(() => measureAndOpen(), 20);
+    }
+  };
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(collapsed));
-    } catch (e) {}
-  }, [collapsed, storageKey]);
+  const onKey = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggle();
+    }
+  };
 
-  const total = displayPosts.length;
-  const currentIndex = displayPosts.findIndex(p => p.slug === currentSlug);
-  const currentPart = currentIndex === -1 ? null : displayPosts[currentIndex].displayPart;
+  // Helper: strip leading "01 - " or "1. " style numeric prefix from title for series list only
+  const stripLeadingNumberPrefix = (t) => {
+    if (!t || typeof t !== "string") return t;
+    return t.replace(/^\s*\d+[\.\-\)]\s*/g, "").trim();
+  };
 
   return (
-    <div className="mb-6 rounded-lg border border-teal-100 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/20 overflow-hidden">
-      <div className="flex items-start justify-between p-4">
-        <div className="flex items-start gap-3 min-w-0 w-full">
-          {/* Bigger book icon so title + subtitle can wrap */}
-          <div className="flex-shrink-0 mt-0.5">
-            <BookOpen className="w-10 h-10 text-teal-700 dark:text-teal-200" />
+    <div className="border border-teal-200/40 rounded-lg bg-teal-50/60 dark:bg-teal-900/6 p-4 mb-6">
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={toggle}
+        onKeyDown={onKey}
+        aria-expanded={open}
+        aria-controls="series-list"
+        className="w-full cursor-pointer flex items-start justify-between gap-4"
+      >
+        <div className="flex items-start gap-3">
+          <div className="p-2 rounded-md bg-teal-100/60 dark:bg-teal-900/20">
+            <BookOpen className="w-8 h-8 text-teal-700" />
           </div>
 
-          {/* Title + Part container - flex-grow so it can wrap to multiple lines */}
-          <div className="min-w-0 flex-1">
-            <div className="text-sm font-semibold text-teal-700 dark:text-teal-200 leading-tight truncate">
+          <div>
+            <div className="font-semibold text-teal-800 dark:text-teal-300 text-lg">
               {title}
             </div>
-            <div className="text-xs text-teal-700 dark:text-teal-300 mt-0.5">
-              {currentPart ? `Part ${currentPart} of ${total}` : `Part 1 of ${total}`}
+            <div className="text-sm text-teal-600 dark:text-teal-400">
+              Part {part} of {total}
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 ml-3">
-          {hasDuplicates && (
-            <div title="Duplicate part numbers detected" className="text-xs text-gray-600 dark:text-gray-300 flex items-center gap-1">
-              <AlertTriangle className="w-4 h-4 text-yellow-600" />
-              <span className="hidden sm:inline">Part numbers duplicate</span>
-            </div>
-          )}
-
+        <div className="ml-auto flex items-center">
           <button
-            onClick={() => setCollapsed(c => !c)}
-            className="p-1 rounded-full hover:bg-teal-100 dark:hover:bg-teal-800 transition"
-            aria-expanded={!collapsed}
-            aria-label={collapsed ? "Expand series" : "Collapse series"}
+            type="button"
+            aria-label={open ? "Collapse series" : "Expand series"}
+            className="p-2 rounded-full bg-transparent hover:bg-teal-100/50 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggle();
+            }}
           >
-            {collapsed ? <ChevronDown className="w-5 h-5 text-teal-700 dark:text-teal-200" /> : <ChevronUp className="w-5 h-5 text-teal-700 dark:text-teal-200" />}
+            <ChevronUp
+              className={`w-5 h-5 text-teal-700 transform transition-transform duration-200 ${
+                open ? "rotate-0" : "rotate-180"
+              }`}
+            />
           </button>
         </div>
       </div>
 
-      {!collapsed && (
-        <div className="px-4 pb-4">
-          {/* Use browser ol numbering on the left; ensure list items' content are inline so number stays on same line */}
-          <ol className="list-decimal list-inside space-y-2 text-sm">
-            {displayPosts.map((p) => {
-              const isCurrent = p.slug === currentSlug;
-              return (
-                <li key={p.slug} className="min-w-0">
-                  {/* Keep link/text inline so the list marker is on the same line.
-                      Use break-words/whitespace-normal so long titles wrap and do not overflow. */}
-                  {isCurrent ? (
-                    <span className="font-semibold text-neutral-900 dark:text-white leading-snug break-words whitespace-normal">
-                      {p.title}
-                      <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">— current</span>
-                    </span>
-                  ) : (
-                    <Link href={`/posts/${p.slug}`} className="text-teal-700 hover:underline inline leading-snug break-words whitespace-normal max-w-full">
-                      {p.title}
-                    </Link>
-                  )}
-
-                  {/* If preferredPart exists and differs from displayPart (due to fallback), show small hint */}
-                  {p.preferredPart && p.preferredPart !== p.displayPart && (
-                    <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-                      (frontmatter part: {p.preferredPart}, using order {p.displayPart})
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-      )}
+      <div
+        id="series-list"
+        ref={innerRef}
+        className="series-inner overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out mt-4"
+        style={{
+          maxHeight: maxHeight === "none" ? undefined : maxHeight,
+          opacity: open ? 1 : 0.97,
+        }}
+      >
+        <ol className="list-decimal list-inside text-sm text-teal-800 dark:text-teal-200 space-y-2">
+          {items.map((it, idx) => {
+            const isCurrent = it.slug === currentSlug;
+            // show title without leading numeric prefix (so the list number is the visible one)
+            const displayTitle = stripLeadingNumberPrefix(it.title || it.slug);
+            return (
+              <li key={it.slug} className={`${isCurrent ? "font-bold" : ""}`}>
+                <Link
+                  href={`/posts/${it.slug}`}
+                  className={`hover:underline ${isCurrent ? "text-black dark:text-white" : "text-teal-700 dark:text-teal-300"}`}
+                >
+                  {displayTitle}
+                </Link>
+                {isCurrent && <span className="text-gray-500 ml-2 text-xs">— current</span>}
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </div>
   );
 }

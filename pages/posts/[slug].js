@@ -1,3 +1,4 @@
+// pages/posts/[slug].js
 import matter from "gray-matter";
 import Link from "next/link";
 import {
@@ -96,6 +97,24 @@ export default function PostPage({
 
   const currentSlug = slug;
 
+  /**
+   * SERIES props conversion:
+   * - seriesPosts (from getStaticProps) contains items like: { slug, title, part }
+   * - For SeriesBox we want items: [{ slug, title }], computed part (numeric), total
+   */
+  const itemsForSeries = Array.isArray(seriesPosts)
+    ? seriesPosts.map(sp => ({ slug: sp.slug, title: sp.title || sp.slug }))
+    : [];
+
+  const currentIndexInSeries = itemsForSeries.findIndex(p => p.slug === currentSlug);
+
+  // If seriesPosts included part numbers in getStaticProps, prefer that; otherwise infer from index + 1.
+  const inferredPart = (currentIndexInSeries !== -1)
+    ? (seriesPosts[currentIndexInSeries]?.part ?? (currentIndexInSeries + 1))
+    : null;
+
+  const seriesTotal = Array.isArray(itemsForSeries) ? itemsForSeries.length : 0;
+
   return (
     <>
       <Head>
@@ -170,11 +189,13 @@ export default function PostPage({
             )}
           </div>
 
-          {/* Series box */}
-          {seriesTitle && seriesPosts.length > 0 && (
+          {/* Series box: pass normalized props expected by the SeriesBox component */}
+          {seriesTitle && itemsForSeries.length > 0 && (
             <SeriesBox
               title={seriesTitle}
-              posts={seriesPosts}
+              part={inferredPart}
+              total={seriesTotal}
+              items={itemsForSeries}
               currentSlug={currentSlug}
             />
           )}
