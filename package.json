@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-sitemap",
+    "build": "next build && node ./scripts/generate-sitemap.js",
     "start": "next start"
   },
   "dependencies": {
@@ -12,7 +12,6 @@
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.544.0",
     "next": "14.2.4",
-    "next-sitemap": "^4.2.3",
     "next-themes": "^0.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
