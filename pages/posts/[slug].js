@@ -298,33 +298,33 @@ export async function getStaticProps({ params: { slug } }) {
   });
 
   // Determine prev/next using series order when the current post is part of a series
-    const currentSeriesTitle = frontmatter.series || null;
-    const seriesPosts = currentSeriesTitle ? (seriesMap[currentSeriesTitle] || []) : [];
+  const currentSeriesTitle = frontmatter.series || null;
+  const seriesPosts = currentSeriesTitle ? (seriesMap[currentSeriesTitle] || []) : [];
 
-    let prevPost = null;
-    let nextPost = null;
+  let prevPost = null;
+  let nextPost = null;
 
-    if (seriesPosts.length > 0) {
-      // find current index in series (deterministic sorted order)
-      const idx = seriesPosts.findIndex(p => p.slug === slug);
-      if (idx !== -1) {
-        if (idx > 0) prevPost = { slug: seriesPosts[idx - 1].slug, title: seriesPosts[idx - 1].title };
-        if (idx < seriesPosts.length - 1) nextPost = { slug: seriesPosts[idx + 1].slug, title: seriesPosts[idx + 1].title };
-      }
-      // IMPORTANT: do NOT fall back to date-based neighbors when the post is part of a series.
-      // This ensures first/last items in a series do not show unrelated global prev/next.
+  if (seriesPosts.length > 0) {
+    // find current index in series (deterministic sorted order)
+    const idx = seriesPosts.findIndex(p => p.slug === slug);
+    if (idx !== -1) {
+      if (idx > 0) prevPost = { slug: seriesPosts[idx - 1].slug, title: seriesPosts[idx - 1].title };
+      if (idx < seriesPosts.length - 1) nextPost = { slug: seriesPosts[idx + 1].slug, title: seriesPosts[idx + 1].title };
     }
+    // IMPORTANT: do NOT fall back to date-based neighbors when the post is part of a series.
+    // This ensures first/last items in a series do not show unrelated global prev/next.
+  }
 
-    // Fallback: only use site-wide date order if the post is NOT part of a series
-    // (or if it claims a series but is not actually found inside that series).
-    const currentInSeries = seriesPosts.length > 0 && seriesPosts.findIndex(p => p.slug === slug) !== -1;
-    if (!currentInSeries) {
-      const currentIndex = allPosts.findIndex(post => post.slug === slug);
-      const prevByDate = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null; // older
-      const nextByDate = currentIndex > 0 ? allPosts[currentIndex - 1] : null; // newer
-      if (!prevPost && prevByDate) prevPost = { slug: prevByDate.slug, title: prevByDate.title };
-      if (!nextPost && nextByDate) nextPost = { slug: nextByDate.slug, title: nextByDate.title };
-    }
+  // Fallback: only use site-wide date order if the post is NOT part of a series
+  // (or if it claims a series but is not actually found inside that series).
+  const currentInSeries = seriesPosts.length > 0 && seriesPosts.findIndex(p => p.slug === slug) !== -1;
+  if (!currentInSeries) {
+    const currentIndex = allPosts.findIndex(post => post.slug === slug);
+    const prevByDate = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null; // older
+    const nextByDate = currentIndex > 0 ? allPosts[currentIndex - 1] : null; // newer
+    if (!prevPost && prevByDate) prevPost = { slug: prevByDate.slug, title: prevByDate.title };
+    if (!nextPost && nextByDate) nextPost = { slug: nextByDate.slug, title: nextByDate.title };
+  }
 
   return {
     props: {

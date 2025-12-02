@@ -7,44 +7,46 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .animate-slideDown {
   animation: slideDown 0.2s ease-out;
 }
 
 @layer components {
-    .prose img {
-      @apply max-w-full h-auto;
-    }
+  .prose img {
+    @apply max-w-full h-auto;
+  }
 
-    .prose pre {
-      @apply overflow-x-auto;
-    }
+  .prose pre {
+    @apply overflow-x-auto;
+  }
 
-    .prose table {
-      @apply w-full border-collapse my-6 block overflow-x-auto;
-    }
+  .prose table {
+    @apply w-full border-collapse my-6 block overflow-x-auto;
+  }
 
-    .prose thead {
-      @apply border-b-2 border-gray-300 dark:border-gray-600;
-    }
+  .prose thead {
+    @apply border-b-2 border-gray-300 dark:border-gray-600;
+  }
 
-    .prose th,
-    .prose td {
-      @apply px-4 py-2 text-left border border-gray-300 dark:border-gray-600;
-    }
+  .prose th,
+  .prose td {
+    @apply px-4 py-2 text-left border border-gray-300 dark:border-gray-600;
+  }
 
-    .prose td {
-      @apply font-normal align-top;
-    }
+  .prose td {
+    @apply font-normal align-top;
+  }
 
-    .prose tr:nth-child(even) {
-      @apply bg-gray-50 dark:bg-gray-700/50;
-    }
+  .prose tr:nth-child(even) {
+    @apply bg-gray-50 dark:bg-gray-700/50;
+  }
 }
 
 /* Smooth sidebar tag collapse / expand (updated) */
@@ -56,14 +58,16 @@
 
 /* Collapsed (partial) — shows ~7-8 tags depending on pill size; adjust if needed */
 .collapsible-container.collapsed {
-  max-height: 140px; /* <- controls how many tags show in collapsed state; tweak this */
+  max-height: 140px;
+  /* <- controls how many tags show in collapsed state; tweak this */
   padding-bottom: 0.25rem;
   opacity: 1;
 }
 
 /* Expanded (all tags visible) */
 .collapsible-container.expanded {
-  max-height: 800px; /* large enough to show full list — adjust if you have many tags */
+  max-height: 800px;
+  /* large enough to show full list — adjust if you have many tags */
   opacity: 1;
 }
 

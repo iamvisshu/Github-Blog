@@ -17,11 +17,10 @@ const Pagination = ({ numPages, currentPage }) => {
         <Link
           key={page}
           href={page === 1 ? "/" : `/page/${page}`}
-          className={`px-4 py-2 rounded-full font-bold transition-colors duration-200 ${
-            page === currentPage
-              ? "bg-indigo-600 text-white"
-              : "bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-700 dark:text-indigo-300 dark:hover:bg-gray-600"
-          }`}
+          className={`px-4 py-2 rounded-full font-bold transition-colors duration-200 ${page === currentPage
+            ? "bg-indigo-600 text-white"
+            : "bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-700 dark:text-indigo-300 dark:hover:bg-gray-600"
+            }`}
         >
           {page}
         </Link>

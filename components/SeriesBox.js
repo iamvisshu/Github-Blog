@@ -1,4 +1,3 @@
-// components/SeriesBox.js
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { BookOpen, ChevronUp } from "lucide-react";
@@ -111,9 +110,8 @@ export default function SeriesBox({ title, part, total, items = [], currentSlug 
             }}
           >
             <ChevronUp
-              className={`w-5 h-5 text-teal-700 transform transition-transform duration-200 ${
-                open ? "rotate-0" : "rotate-180"
-              }`}
+              className={`w-5 h-5 text-teal-700 transform transition-transform duration-200 ${open ? "rotate-0" : "rotate-180"
+                }`}
             />
           </button>
         </div>

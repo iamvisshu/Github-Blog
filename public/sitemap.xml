@@ -6,17 +6,17 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://vishalsblog.vercel.app/</loc>
-    <lastmod>2025-11-22T08:31:42.464Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.891Z</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/about</loc>
-    <lastmod>2025-11-22T08:31:42.464Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.892Z</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags</loc>
-    <lastmod>2025-11-22T08:31:42.464Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.892Z</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -86,127 +86,127 @@
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Java</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Spring</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Spring%20Boot</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Backend</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Spring%20MVC</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Maven</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/IDE</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Setup</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Beginner</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/IoC</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Dependency%20Injection</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/BeanFactory</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/ApplicationContext</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Bean%20Lifecycle</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Bean%20Scope</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Beans</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Component</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Service</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Repository</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Configuration</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Bean</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/PostConstruct</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/PreDestroy</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/Component%20Scan</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://vishalsblog.vercel.app/tags/ComponentScan</loc>
-    <lastmod>2025-11-22T08:31:42.467Z</lastmod>
+    <lastmod>2025-12-02T09:31:00.895Z</lastmod>
     <priority>0.70</priority>
   </url>
 </urlset>
