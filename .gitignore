@@ -63,3 +63,5 @@ yarn-error.log*
 ### VS Code ###
 .vscode/
 
+# Ignore configuration files for Agent
+.agent/
