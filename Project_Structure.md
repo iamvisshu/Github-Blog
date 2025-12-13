@@ -15,14 +15,15 @@ Github-Blog/
 │   ├── Header.js
 │   ├── Layout.js
 │   ├── PostCard.js
+│   ├── SeriesBox.js
 │   └── Sidebar.js
 ├── LICENSE
-├── next-sitemap.config.js
 ├── next.config.js
 ├── package-lock.json
 ├── package.json
 ├── pages/
 │   ├── _app.js
+│   ├── _document.js
 │   ├── about.js
 │   ├── api/
 │   │   ├── search-data.js
@@ -40,23 +41,26 @@ Github-Blog/
 │   └── tags.js
 ├── postcss.config.js
 ├── posts/
-│   ├── 01SpringBoot.md
-│   ├── 02SpringBoot.md
-│   ├── hello-world.md
-│   ├── PostNumber01.md
-│   └── PostNumber02.md
 ├── Project_Structure.md
 ├── public/
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
 │   ├── google1bc1018399c0d0c7.html
 │   ├── images/
 │   │   ├── avatar.jpg
 │   │   ├── example.png
-│   │   ├── favicon.ico
-│   │   └── header.webp
+│   │   ├── header.webp
+│   │   └── og-image.jpg
 │   ├── robots.txt
-│   ├── sitemap-0.xml
+│   ├── site.webmanifest
 │   └── sitemap.xml
 ├── README.md
+├── scripts/
+│   └── generate-sitemap.js
 ├── styles/
 │   └── globals.css
 └── tailwind.config.js
