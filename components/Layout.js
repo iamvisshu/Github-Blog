@@ -68,7 +68,7 @@ export default function Layout({ children }) {
           setSearchPerformed(false); // Clear this flag too
         }}
       />
-      <div className="relative w-full h-40 md:h-52 bg-gray-200 dark:bg-gray-900 mb-8">
+      <div className="relative w-full h-40 md:h-52 bg-gray-200 dark:bg-gray-900 flex">
         <Image
           src={HEADER_IMAGE}
           alt="Header"
