@@ -8,26 +8,7 @@ import Head from "next/head";
 
 const POSTS_PER_PAGE = 3;
 
-// Pagination component reused from your implementation (can refactor to a shared component file)
-const Pagination = ({ numPages, currentPage, tag }) => {
-  const pages = Array.from({ length: numPages }, (_, i) => i + 1);
-  return (
-    <div className="flex justify-center mt-10 space-x-2">
-      {pages.map((page) => (
-        <Link
-          key={page}
-          href={`/tags/${tag}/page/${page}`}
-          className={`px-4 py-2 rounded-full font-bold transition-colors duration-200 ${page === currentPage
-            ? 'bg-indigo-600 text-white'
-            : 'bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-700 dark:text-indigo-300 dark:hover:bg-gray-600'
-            }`}
-        >
-          {page}
-        </Link>
-      ))}
-    </div>
-  );
-};
+import Pagination from "../../../../components/Pagination";
 
 export default function TagPostsPaginated({ posts, tag, numPages, currentPage, allTags }) {
   return (
@@ -55,7 +36,7 @@ export default function TagPostsPaginated({ posts, tag, numPages, currentPage, a
             posts.map((post) => <PostCard key={post.slug} {...post} />)
           )}
           {numPages > 1 && (
-            <Pagination numPages={numPages} currentPage={currentPage} tag={tag} />
+            <Pagination numPages={numPages} currentPage={currentPage} basePath={`/tags/${tag}/page/`} />
           )}
           <div className="mt-8">
             <Link

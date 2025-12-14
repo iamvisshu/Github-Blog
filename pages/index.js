@@ -11,25 +11,7 @@ import { getAllSeries } from "../lib/seriesUtils";
 
 const POSTS_PER_PAGE = 4;
 
-const Pagination = ({ numPages, currentPage }) => {
-  const pages = Array.from({ length: numPages }, (_, i) => i + 1);
-  return (
-    <div className="flex justify-center mt-10 space-x-2">
-      {pages.map(page => (
-        <Link
-          key={page}
-          href={page === 1 ? "/" : `/page/${page}`}
-          className={`px-4 py-2 rounded-full font-bold transition-colors duration-200 ${page === currentPage
-            ? "bg-indigo-600 text-white"
-            : "bg-white text-indigo-600 hover:bg-indigo-100 dark:bg-gray-700 dark:text-indigo-300 dark:hover:bg-gray-600"
-            }`}
-        >
-          {page}
-        </Link>
-      ))}
-    </div>
-  );
-};
+import Pagination from "../components/Pagination";
 
 
 export default function Home({ posts, search = "", numPages, allTags, allSeries }) {
