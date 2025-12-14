@@ -63,6 +63,13 @@ export default function Header({
           >
             About
           </Link>
+          {/* Added Series Link */}
+          <Link
+            href="/series"
+            className="font-semibold px-3 py-1 rounded-full hover:bg-teal-50 hover:text-teal-500 dark:hover:bg-teal-900 dark:hover:text-teal-400 transition-colors"
+          >
+            Series
+          </Link>
           <Link
             href="/tags"
             className="font-semibold px-3 py-1 rounded-full hover:bg-teal-50 hover:text-teal-500 dark:hover:bg-teal-900 dark:hover:text-teal-400 transition-colors"
@@ -108,6 +115,7 @@ export default function Header({
           <nav className="flex flex-col gap-3">
             {/* Mobile links keep the font-semibold class for consistency */}
             <Link href="/" onClick={closeMenu} className="font-semibold hover:underline">Home</Link>
+            <Link href="/series" onClick={closeMenu} className="font-semibold hover:underline">Series</Link>
             <Link href="/about" onClick={closeMenu} className="font-semibold hover:underline">About</Link>
             <Link href="/tags" onClick={closeMenu} className="font-semibold hover:underline">Tags</Link>
             <a
