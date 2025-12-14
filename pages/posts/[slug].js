@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Head from "next/head";
 import SeriesBox from "../../components/SeriesBox";
+import NextSeriesCard from "../../components/NextSeriesCard";
 
 const PostNavigation = ({ prevPost, nextPost }) => {
   // Single row on mobile: use flex-row and allow wrapping if very narrow.
@@ -72,7 +73,8 @@ export default function PostPage({
   prevPost,
   nextPost,
   seriesPosts = [],
-  seriesTitle = null
+  seriesTitle = null,
+  nextSeries = null
 }) {
   // Safe title/summary
   const rawTitle = frontmatter?.title ?? "";
@@ -208,6 +210,14 @@ export default function PostPage({
 
           {/* Navigation (we purposely pass prev/next computed in getStaticProps) */}
           <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+
+          {/* Next Series Card (show only on last post of a series) */}
+          {nextSeries && (
+            <NextSeriesCard
+              currentSeriesTitle={seriesTitle}
+              nextSeries={nextSeries}
+            />
+          )}
         </article>
       </div>
     </>
@@ -326,6 +336,39 @@ export async function getStaticProps({ params: { slug } }) {
     if (!nextPost && nextByDate) nextPost = { slug: nextByDate.slug, title: nextByDate.title };
   }
 
+  // --- DETECT LAST POST AND NEXT SERIES ---
+  const { getAllSeries, getNextSeries, isLastPostInSeries } = require("../../lib/seriesUtils");
+
+  let nextSeries = null;
+
+  // Check if this is the last post in the current series
+  if (currentSeriesTitle && seriesPosts.length > 0) {
+    const isLastPost = isLastPostInSeries(slug, seriesPosts);
+
+    if (isLastPost) {
+      // Get all series to find the next one
+      const allSeries = getAllSeries(
+        files,
+        (filename) => fs.readFileSync(path.join("posts", filename), "utf-8"),
+        matter
+      );
+
+      // Get the next series after current one
+      const nextSeriesData = getNextSeries(currentSeriesTitle, allSeries);
+
+      if (nextSeriesData) {
+        nextSeries = {
+          slug: nextSeriesData.slug,
+          title: nextSeriesData.title,
+          postCount: nextSeriesData.postCount,
+          description: nextSeriesData.description,
+          level: nextSeriesData.level,
+          icon: nextSeriesData.icon,
+        };
+      }
+    }
+  }
+
   return {
     props: {
       slug,
@@ -336,7 +379,8 @@ export async function getStaticProps({ params: { slug } }) {
       prevPost,
       nextPost,
       seriesPosts,
-      seriesTitle: currentSeriesTitle
+      seriesTitle: currentSeriesTitle,
+      nextSeries
     }
   };
 }

@@ -4,8 +4,10 @@ import matter from "gray-matter";
 import PostCard from "../components/PostCard";
 import Link from "next/link";
 import Sidebar from "../components/Sidebar";
+import SeriesOverview from "../components/SeriesOverview";
 import { Calendar, Tag, Clock, BookOpen } from "lucide-react";
 import Head from "next/head";
+import { getAllSeries } from "../lib/seriesUtils";
 
 const POSTS_PER_PAGE = 4;
 
@@ -30,7 +32,7 @@ const Pagination = ({ numPages, currentPage }) => {
 };
 
 
-export default function Home({ posts, search = "", numPages, allTags }) {
+export default function Home({ posts, search = "", numPages, allTags, allSeries }) {
   const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(search.toLowerCase())
   );
@@ -62,6 +64,10 @@ export default function Home({ posts, search = "", numPages, allTags }) {
       <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-x-hidden">
         <Sidebar allTags={allTags} isHomepage={true} />
         <main className="flex-1 space-y-8">
+          {/* Series Overview Section */}
+          <SeriesOverview series={allSeries} />
+
+          {/* Posts List */}
           {filteredPosts.length === 0 && search.length > 0 ? (
             <p className="text-gray-500 dark:text-gray-200">
               No posts found for "{search}"
@@ -79,12 +85,13 @@ export default function Home({ posts, search = "", numPages, allTags }) {
 }
 
 export async function getStaticProps() {
-  const files = fs.readdirSync(path.join("posts"));
+  const postsDir = path.join("posts");
+  const files = fs.readdirSync(postsDir);
   let allTags = {};
 
   let posts = files.map(filename => {
     const slug = filename.replace(".md", "");
-    const markdownWithMeta = fs.readFileSync(path.join("posts", filename), "utf-8");
+    const markdownWithMeta = fs.readFileSync(path.join(postsDir, filename), "utf-8");
     const { data: frontmatter, content } = matter(markdownWithMeta);
 
     // Count tags while mapping posts
@@ -117,11 +124,19 @@ export async function getStaticProps() {
   // 3. Slice the posts for the current page (Page 1)
   const currentPagePosts = posts.slice(0, POSTS_PER_PAGE);
 
+  // 4. Get all series
+  const allSeries = getAllSeries(
+    files,
+    (filename) => fs.readFileSync(path.join(postsDir, filename), "utf-8"),
+    matter
+  );
+
   return {
     props: {
       posts: currentPagePosts,
       numPages,
       allTags: allTags,
+      allSeries,
     },
   };
 }
