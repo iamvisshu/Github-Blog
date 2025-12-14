@@ -74,7 +74,7 @@ export default function SeriesBox({ title, part, total, items = [], currentSlug 
   };
 
   return (
-    <div className="border border-teal-200/40 rounded-lg bg-teal-50/60 dark:bg-teal-900/6 p-4 mb-6">
+    <div className="border border-teal-100 dark:border-gray-700 rounded-xl bg-teal-50/50 dark:bg-gray-800/80 p-5 mb-8 shadow-sm">
       <div
         role="button"
         tabIndex={0}
@@ -84,33 +84,35 @@ export default function SeriesBox({ title, part, total, items = [], currentSlug 
         aria-controls="series-list"
         className="w-full cursor-pointer flex items-start justify-between gap-4"
       >
-        <div className="flex items-start gap-3">
-          <div className="p-2 rounded-md bg-teal-100/60 dark:bg-teal-900/20">
-            <BookOpen className="w-8 h-8 text-teal-700" />
+        <div className="flex items-start gap-4">
+          <div className="p-2.5 rounded-lg bg-white dark:bg-gray-700 shadow-sm border border-teal-100 dark:border-gray-600">
+            <BookOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />
           </div>
 
           <div>
-            <div className="font-semibold text-teal-800 dark:text-teal-300 text-lg">
+            <div className="font-bold text-gray-900 dark:text-gray-100 text-lg leading-tight mb-1">
               {title}
             </div>
-            <div className="text-sm text-teal-600 dark:text-teal-400">
-              Part {part} of {total}
+            <div className="text-sm font-medium text-teal-700 dark:text-teal-400 flex items-center gap-1.5">
+              <span className="bg-teal-100 dark:bg-teal-900/50 px-2 py-0.5 rounded text-xs">
+                Part {part} of {total}
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto flex items-center self-center">
           <button
             type="button"
             aria-label={open ? "Collapse series" : "Expand series"}
-            className="p-2 rounded-full bg-transparent hover:bg-teal-100/50 transition-colors"
+            className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               toggle();
             }}
           >
             <ChevronUp
-              className={`w-5 h-5 text-teal-700 transform transition-transform duration-200 ${open ? "rotate-0" : "rotate-180"
+              className={`w-5 h-5 text-gray-400 dark:text-gray-500 transform transition-transform duration-200 ${open ? "rotate-0" : "rotate-180"
                 }`}
             />
           </button>
@@ -120,31 +122,38 @@ export default function SeriesBox({ title, part, total, items = [], currentSlug 
       <div
         id="series-list"
         ref={innerRef}
-        className="series-inner overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out mt-4"
+        className="series-inner overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
         style={{
           maxHeight: maxHeight === "none" ? undefined : maxHeight,
           opacity: open ? 1 : 0.97,
         }}
       >
-        <ol className="list-decimal list-inside text-sm text-teal-800 dark:text-teal-200 space-y-2">
-          {items.map((it, idx) => {
-            const isCurrent = it.slug === currentSlug;
-            // show title without leading numeric prefix (so the list number is the visible one)
-            const displayTitle = stripLeadingNumberPrefix(it.title || it.slug);
-            return (
-              <li key={it.slug} className={`${isCurrent ? "font-bold" : ""}`}>
-                <Link
-                  href={`/posts/${it.slug}`}
-                  className={`hover:underline ${isCurrent ? "text-black dark:text-white" : "text-teal-700 dark:text-teal-300"}`}
-                >
-                  {displayTitle}
-                </Link>
-                {isCurrent && <span className="text-gray-500 ml-2 text-xs">— current</span>}
-              </li>
-            );
-          })}
-        </ol>
+        <div className="mt-5 pt-5 border-t border-teal-100 dark:border-gray-700">
+          <ol className="list-decimal list-inside text-sm space-y-3">
+            {items.map((it, idx) => {
+              const isCurrent = it.slug === currentSlug;
+              // show title without leading numeric prefix (so the list number is the visible one)
+              const displayTitle = stripLeadingNumberPrefix(it.title || it.slug);
+              return (
+                <li key={it.slug} className={`pl-1 ${isCurrent ? "font-bold text-teal-700 dark:text-teal-400 marker:text-teal-600 dark:marker:text-teal-400" : "text-gray-600 dark:text-gray-400 marker:text-gray-400 dark:marker:text-gray-600"}`}>
+                  <Link
+                    href={`/posts/${it.slug}`}
+                    className={`hover:underline block sm:inline transition-colors ${isCurrent ? "" : "hover:text-teal-600 dark:hover:text-teal-300"}`}
+                  >
+                    {displayTitle}
+                  </Link>
+                  {isCurrent && (
+                    <span className="inline-block ml-2 px-1.5 py-0.5 text-[10px] uppercase tracking-wider font-bold text-white bg-teal-600 dark:bg-teal-500 rounded-sm leading-none align-middle relative -top-px">
+                      Current
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </div>
     </div>
+
   );
 }
