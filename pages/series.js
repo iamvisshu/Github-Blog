@@ -166,15 +166,18 @@ function SeriesCard({ series }) {
 export async function getStaticProps() {
     try {
         const postsDir = path.join(process.cwd(), "posts");
+        const seriesDir = path.join(process.cwd(), "series");
+
         // Ensure directory exists
         if (!fs.existsSync(postsDir)) {
             return { props: { allSeries: [] } };
         }
 
         const files = fs.readdirSync(postsDir);
+        // getAllSeries uses this function for posts, but handles series reading internally via fs/path + seriesDir
         const apiRead = (f) => fs.readFileSync(path.join(postsDir, f), "utf-8");
 
-        const allSeries = getAllSeries(files, apiRead, matter);
+        const allSeries = getAllSeries(files, apiRead, matter, postsDir, seriesDir);
 
         return {
             props: {

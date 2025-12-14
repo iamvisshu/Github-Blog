@@ -202,7 +202,8 @@ export async function getStaticPaths() {
         const files = fs.readdirSync(postsDir);
         const apiFileRead = (f) => fs.readFileSync(path.join(postsDir, f), "utf-8");
 
-        const allSeries = getAllSeries(files, apiFileRead, matter);
+        const seriesDir = path.join(process.cwd(), "series");
+        const allSeries = getAllSeries(files, apiFileRead, matter, postsDir, seriesDir);
 
         const paths = allSeries.map((series) => ({
             params: { seriesSlug: series.slug },
@@ -222,7 +223,8 @@ export async function getStaticProps({ params }) {
         const files = fs.readdirSync(postsDir);
         const apiFileRead = (f) => fs.readFileSync(path.join(postsDir, f), "utf-8");
 
-        const allSeries = getAllSeries(files, apiFileRead, matter);
+        const seriesDir = path.join(process.cwd(), "series");
+        const allSeries = getAllSeries(files, apiFileRead, matter, postsDir, seriesDir);
         const series = allSeries.find((s) => s.slug === seriesSlug);
 
         if (!series) {

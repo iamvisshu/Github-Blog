@@ -347,10 +347,14 @@ export async function getStaticProps({ params: { slug } }) {
 
     if (isLastPost) {
       // Get all series to find the next one
+      const seriesDir = path.join(process.cwd(), "series");
+      const postsDir = path.join("posts");
       const allSeries = getAllSeries(
         files,
-        (filename) => fs.readFileSync(path.join("posts", filename), "utf-8"),
-        matter
+        (filename) => fs.readFileSync(path.join(postsDir, filename), "utf-8"),
+        matter,
+        postsDir,
+        seriesDir
       );
 
       // Get the next series after current one
