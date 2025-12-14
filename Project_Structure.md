@@ -14,9 +14,13 @@ Github-Blog/
 │   ├── Footer.js
 │   ├── Header.js
 │   ├── Layout.js
+│   ├── NextSeriesCard.js
 │   ├── PostCard.js
 │   ├── SeriesBox.js
+│   ├── SeriesOverview.js
 │   └── Sidebar.js
+├── lib/
+│   └── seriesUtils.js
 ├── LICENSE
 ├── next.config.js
 ├── package-lock.json
@@ -33,6 +37,9 @@ Github-Blog/
 │   │   └── [page].js
 │   ├── posts/
 │   │   └── [slug].js
+│   ├── series/
+│   │   └── [seriesSlug].js
+│   ├── series.js
 │   ├── tags/
 │   │   ├── [tag]/
 │   │   │   └── page/
@@ -61,8 +68,8 @@ Github-Blog/
 ├── README.md
 ├── scripts/
 │   └── generate-sitemap.js
+├── series/
 ├── styles/
 │   └── globals.css
 └── tailwind.config.js
-
 ```
