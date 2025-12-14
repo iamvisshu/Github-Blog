@@ -110,10 +110,8 @@ export default function PostPage({
 
   const currentIndexInSeries = itemsForSeries.findIndex(p => p.slug === currentSlug);
 
-  // If seriesPosts included part numbers in getStaticProps, prefer that; otherwise infer from index + 1.
-  const inferredPart = (currentIndexInSeries !== -1)
-    ? (seriesPosts[currentIndexInSeries]?.part ?? (currentIndexInSeries + 1))
-    : null;
+  // Calculate 1-based index within the series for correct "Part X of Y" display
+  const inferredPart = (currentIndexInSeries !== -1) ? (currentIndexInSeries + 1) : null;
 
   const seriesTotal = Array.isArray(itemsForSeries) ? itemsForSeries.length : 0;
 
