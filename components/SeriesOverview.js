@@ -39,7 +39,7 @@ export default function SeriesOverview({ series }) {
             </div>
 
             {/* View All Link */}
-            <div className="mt-8 text-center md:text-left">
+            <div className="mt-8 text-center">
                 <Link
                     href="/series"
                     className="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-bold transition-colors"
