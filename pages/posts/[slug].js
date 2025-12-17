@@ -139,28 +139,49 @@ export default function PostPage({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              headline: safeTitle,
-              description: safeSummary,
-              image: ["https://vishalsblog.vercel.app/images/og-image.jpg"],
-              datePublished: date,
-              author: {
-                "@type": "Person",
-                name: author,
-                url: "https://vishalsblog.vercel.app/about"
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "Vishal's Blog",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://vishalsblog.vercel.app/images/header.webp"
+              "@graph": [
+                {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "https://vishalsblog.vercel.app/"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": safeTitle,
+                      "item": canonicalUrl
+                    }
+                  ]
+                },
+                {
+                  "@type": "BlogPosting",
+                  headline: safeTitle,
+                  description: safeSummary,
+                  image: ["https://vishalsblog.vercel.app/images/og-image.jpg"],
+                  datePublished: date,
+                  author: {
+                    "@type": "Person",
+                    name: author,
+                    url: "https://vishalsblog.vercel.app/about"
+                  },
+                  publisher: {
+                    "@type": "Organization",
+                    name: "Vishal's Blog",
+                    logo: {
+                      "@type": "ImageObject",
+                      url: "https://vishalsblog.vercel.app/images/header.webp"
+                    }
+                  },
+                  mainEntityOfPage: {
+                    "@type": "WebPage",
+                    "@id": canonicalUrl
+                  }
                 }
-              },
-              mainEntityOfPage: {
-                "@type": "WebPage",
-                "@id": canonicalUrl
-              }
+              ]
             })
           }}
         />
@@ -168,15 +189,20 @@ export default function PostPage({
 
       <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
-          {/* Series Kicker */}
-          {seriesTitle && (
-            <div className="mb-3 flex flex-wrap items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-400">
-              <span className="bg-teal-50 dark:bg-teal-900/40 border border-teal-100 dark:border-teal-800 px-2 py-0.5 rounded-md text-xs uppercase tracking-wide">
-                {inferredPart ? `Series Part ${inferredPart}/${seriesTotal}` : "Series"}
-              </span>
-              <span className="text-gray-700 dark:text-gray-300">{seriesTitle}</span>
-            </div>
-          )}
+          {/* Breadcrumb Visual - Simplified (No redundant title) */}
+          <nav className="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-6" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3 md:w-4 md:h-4 text-gray-300" />
+            {seriesTitle ? (
+              <>
+                <Link href="/series" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Series</Link>
+                <ChevronRight className="w-3 h-3 md:w-4 md:h-4 text-gray-300" />
+                <span className="font-medium text-teal-600 dark:text-teal-400 truncate max-w-[200px]">{seriesTitle}</span>
+              </>
+            ) : (
+              <span className="font-medium text-gray-900 dark:text-gray-100">Blog</span>
+            )}
+          </nav>
 
           <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
 
