@@ -168,6 +168,16 @@ export default function PostPage({
 
       <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <article className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow p-4 md:p-8">
+          {/* Series Kicker */}
+          {seriesTitle && (
+            <div className="mb-3 flex flex-wrap items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-400">
+              <span className="bg-teal-50 dark:bg-teal-900/40 border border-teal-100 dark:border-teal-800 px-2 py-0.5 rounded-md text-xs uppercase tracking-wide">
+                {inferredPart ? `Series Part ${inferredPart}/${seriesTotal}` : "Series"}
+              </span>
+              <span className="text-gray-700 dark:text-gray-300">{seriesTitle}</span>
+            </div>
+          )}
+
           <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6 border-b pb-4">
@@ -287,7 +297,9 @@ export async function getStaticProps({ params: { slug } }) {
     .use(remarkGfm)
     .process(content);
 
-  const contentHtml = processedContent.toString();
+  const contentHtml = processedContent.toString()
+    // Safe optimization: Add lazy loading and async decoding to all markdown images
+    .replace(/<img(?![^>]*\bloading\b)([^>]+)>/g, '<img$1 loading="lazy" decoding="async">');
 
   const wordCount = content.split(/\s/g).length;
   const readingTime = Math.ceil(wordCount / 200);
