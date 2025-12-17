@@ -1,0 +1,39 @@
+# Vishal's Blog
+
+> A personal programming blog focused on Java backend development, Spring Boot, and practical coding guides for students and developers.
+
+Vishal's Blog is a learning resource for developers who want to master Java and backend technologies through clear, example-driven tutorials. The content emphasizes real-world implementations, Spring Boot architecture, and REST API design to bridge the gap between theory and production-ready code.
+
+The primary audience includes computer science students, beginners starting their programming journey, and intermediate developers who want to strengthen their backend fundamentals and build reliable services.
+
+## Core Pages
+
+- [Home](https://vishalsblog.vercel.app/): Main feed of the latest tutorials and long-form learning resources.
+- [About](https://vishalsblog.vercel.app/about): Author background, blog mission, and technical focus areas.
+- [Learning Series](https://vishalsblog.vercel.app/series): Structured, multi-part series that cover backend topics step by step.
+- [All Tags](https://vishalsblog.vercel.app/tags): Complete index of topics and categories to quickly discover related content.
+- [Sitemap](https://vishalsblog.vercel.app/sitemap.xml): Machine-readable index of all pages on the site.
+
+## Featured Content
+
+### Key Topics
+
+- [Java Development](https://vishalsblog.vercel.app/tags/Java): Core Java concepts, syntax, and best practices for writing clean, maintainable code.
+- [Spring Boot](https://vishalsblog.vercel.app/tags/Spring%20Boot): Tutorials on building and configuring Spring Boot applications from setup to deployment.
+- [Backend Engineering](https://vishalsblog.vercel.app/tags/Backend): Guides on designing, building, and securing backend systems and APIs.
+- [Dependency Injection](https://vishalsblog.vercel.app/tags/Dependency%20Injection): Deep dives into Inversion of Control (IoC) and dependency injection patterns in Spring.
+
+### Must-Read Articles
+
+- [What is Spring Framework?](https://vishalsblog.vercel.app/posts/01-what-is-spring): Introductory guide to the Spring ecosystem and its core benefits.
+- [Spring vs Spring Boot](https://vishalsblog.vercel.app/posts/02-spring-vs-spring-boot): Explains the main differences between Spring and Spring Boot and when to use each.
+- [Creating Beans: Component, Service, Repository](https://vishalsblog.vercel.app/posts/11-creating-beans-component-service-repository-configuration-bean): Practical guide to configuring beans and understanding the Spring IoC container.
+- [Key Spring Boot Annotations](https://vishalsblog.vercel.app/posts/19-key-spring-boot-annotations-explained): Reference-style overview of essential annotations used in Spring Boot applications.
+- [Spring Boot Actuator Guide](https://vishalsblog.vercel.app/posts/36-spring-boot-actuator-health-metrics-insights): Demonstrates how to monitor application health and metrics using Spring Boot Actuator.
+
+## Meta
+
+- **Primary Audience**: Java developers, CS students, and backend engineers.
+- **Content Type**: Technical tutorials, code examples, and architectural deep dives focused on Java and Spring Boot.
+- **Tech Stack**: Next.js, React, Vercel (used to build and deploy the site; provided as structural context).
+- **Update Policy**: This file highlights evergreen and foundational posts and does not list every new article.
