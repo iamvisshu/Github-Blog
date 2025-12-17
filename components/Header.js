@@ -33,9 +33,9 @@ export default function Header({
 
       {/* Title */}
       <Link href="/" className="cursor-pointer">
-        <h1 className="font-bold text-xl text-teal-500 hover:text-teal-600 transition-colors">
+        <div className="font-bold text-xl text-teal-500 hover:text-teal-600 transition-colors">
           Vishal&apos;s Blog
-        </h1>
+        </div>
       </Link>
 
       {/* Hamburger (visible on mobile) */}
