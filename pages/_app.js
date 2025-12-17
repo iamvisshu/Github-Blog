@@ -12,7 +12,7 @@ export default function MyApp({ Component, pageProps }) {
     >
       <Head>
         {/* Keep viewport and title here; favicon is added in _document.js for SSR */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <title>Vishal's Blog - Learn and Explore Java Programming</title>
 
         {/* SEO Meta Tags */}
