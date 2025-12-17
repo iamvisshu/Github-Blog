@@ -1,5 +1,11 @@
 User-agent: *
 Disallow:
 
-# Sitemap files
+# Ensure llms.txt is always accessible
+Allow: /llms.txt
+
+# LLMs.txt location (for AI crawlers)
+# llms.txt: https://vishalsblog.vercel.app/llms.txt
+
+# Sitemap
 Sitemap: https://vishalsblog.vercel.app/sitemap.xml
