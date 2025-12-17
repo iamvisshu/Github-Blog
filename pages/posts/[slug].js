@@ -132,6 +132,38 @@ export default function PostPage({
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={safeSummary} />
         <meta name="twitter:image" content="https://vishalsblog.vercel.app/images/og-image.jpg" />
+
+        {/* Structured Data / JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: safeTitle,
+              description: safeSummary,
+              image: ["https://vishalsblog.vercel.app/images/og-image.jpg"],
+              datePublished: date,
+              author: {
+                "@type": "Person",
+                name: author,
+                url: "https://vishalsblog.vercel.app/about"
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "Vishal's Blog",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://vishalsblog.vercel.app/images/header.webp"
+                }
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": canonicalUrl
+              }
+            })
+          }}
+        />
       </Head>
 
       <div className="p-2 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
