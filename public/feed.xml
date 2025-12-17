@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vishal's Blog</title>
+    <link>https://vishalsblog.vercel.app</link>
+    <description>Learn and Explore Java Programming, Spring Boot, and more.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 17 Dec 2025 18:36:57 GMT</lastBuildDate>
+    <atom:link href="https://vishalsblog.vercel.app/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>36 - Using Spring Boot Actuator (Health, Metrics, Insights)</title>
+      <link>https://vishalsblog.vercel.app/posts/36-spring-boot-actuator-health-metrics-insights</link>
+      <guid>https://vishalsblog.vercel.app/posts/36-spring-boot-actuator-health-metrics-insights</guid>
+      <pubDate>Sat, 27 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A comprehensive guide to Spring Boot Actuator, explaining health checks, metrics, endpoints, security, and how Actuator provides production-ready insights for Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>35 - Spring Boot DevTools – Hot Reloading &amp; Developer Productivity</title>
+      <link>https://vishalsblog.vercel.app/posts/35-spring-boot-devtools-hot-reloading</link>
+      <guid>https://vishalsblog.vercel.app/posts/35-spring-boot-devtools-hot-reloading</guid>
+      <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A practical guide to Spring Boot DevTools, explaining hot reloading, automatic restarts, LiveReload, configuration tips, limitations, and best practices to boost developer productivity.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>34 - Spring Boot Logging – Complete Guide</title>
+      <link>https://vishalsblog.vercel.app/posts/34-spring-boot-logging-complete-guide</link>
+      <guid>https://vishalsblog.vercel.app/posts/34-spring-boot-logging-complete-guide</guid>
+      <pubDate>Thu, 25 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A complete guide to logging in Spring Boot, covering default logging setup, Logback configuration, log levels, profiles, and best practices for production systems.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>33 - Profiles &amp; Environment Configuration in Spring Boot (@Profile)</title>
+      <link>https://vishalsblog.vercel.app/posts/33-profiles-and-environment-configuration</link>
+      <guid>https://vishalsblog.vercel.app/posts/33-profiles-and-environment-configuration</guid>
+      <pubDate>Wed, 24 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A complete guide to Spring Boot profiles and environment-based configuration, explaining @Profile, profile-specific properties, activation methods, and best practices for real-world applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>32 - application.properties vs application.yml in Spring Boot</title>
+      <link>https://vishalsblog.vercel.app/posts/32-application-properties-vs-application-yml</link>
+      <guid>https://vishalsblog.vercel.app/posts/32-application-properties-vs-application-yml</guid>
+      <pubDate>Tue, 23 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A detailed comparison of application.properties and application.yml in Spring Boot, explaining differences, use cases, structure, readability, and best practices.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>31 - Best Practices for Spring Boot Applications</title>
+      <link>https://vishalsblog.vercel.app/posts/31-best-practices-for-spring-boot-applications</link>
+      <guid>https://vishalsblog.vercel.app/posts/31-best-practices-for-spring-boot-applications</guid>
+      <pubDate>Mon, 22 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A practical collection of best practices for building clean, scalable, and production-ready Spring Boot applications, covering architecture, configuration, coding standards, and performance.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>30 - Understanding the main() Method in Spring Boot</title>
+      <link>https://vishalsblog.vercel.app/posts/30-understanding-main-method-in-spring-boot</link>
+      <guid>https://vishalsblog.vercel.app/posts/30-understanding-main-method-in-spring-boot</guid>
+      <pubDate>Sun, 21 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A deep dive into the main() method in Spring Boot, explaining SpringApplication.run(), what happens internally, customization options, and best practices.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>29 - Spring Boot Application Startup Process</title>
+      <link>https://vishalsblog.vercel.app/posts/29-spring-boot-application-startup-process</link>
+      <guid>https://vishalsblog.vercel.app/posts/29-spring-boot-application-startup-process</guid>
+      <pubDate>Sat, 20 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A step-by-step explanation of the Spring Boot application startup process, from the main() method to the application being fully ready, including internal phases and key components involved.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>28 - Embedded Web Servers in Spring Boot (Tomcat, Jetty, Netty)</title>
+      <link>https://vishalsblog.vercel.app/posts/28-embedded-web-servers-tomcat-jetty-netty</link>
+      <guid>https://vishalsblog.vercel.app/posts/28-embedded-web-servers-tomcat-jetty-netty</guid>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A detailed explanation of embedded web servers in Spring Boot, how Tomcat, Jetty, and Netty work, why Spring Boot embeds servers, and how to customize or switch between them.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>27 - Creating a Basic Spring Boot Application (Hands-on)</title>
+      <link>https://vishalsblog.vercel.app/posts/27-creating-basic-spring-boot-application</link>
+      <guid>https://vishalsblog.vercel.app/posts/27-creating-basic-spring-boot-application</guid>
+      <pubDate>Thu, 18 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A hands-on walkthrough to create a basic Spring Boot application from scratch, covering project setup, application structure, controllers, and running the app.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>26 - Spring Boot Starters – The Complete Guide</title>
+      <link>https://vishalsblog.vercel.app/posts/26-spring-boot-starters-complete-guide</link>
+      <guid>https://vishalsblog.vercel.app/posts/26-spring-boot-starters-complete-guide</guid>
+      <pubDate>Wed, 17 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A complete guide to Spring Boot starters, explaining what they are, how they work internally, common starters, and best practices for managing dependencies in Spring Boot projects.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>25 - Auto-Configuration: How Spring Boot Does Magic</title>
+      <link>https://vishalsblog.vercel.app/posts/25-auto-configuration-how-spring-boot-does-magic</link>
+      <guid>https://vishalsblog.vercel.app/posts/25-auto-configuration-how-spring-boot-does-magic</guid>
+      <pubDate>Tue, 16 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A deep and practical explanation of Spring Boot auto-configuration, revealing how conditional annotations, classpath scanning, and defaults work together to remove boilerplate and speed up development.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>24 - Key Spring Boot Annotations Explained</title>
+      <link>https://vishalsblog.vercel.app/posts/24-key-spring-boot-annotations-explained</link>
+      <guid>https://vishalsblog.vercel.app/posts/24-key-spring-boot-annotations-explained</guid>
+      <pubDate>Mon, 15 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A focused explanation of the most important Spring Boot annotations, how they work together, and why they are essential to building clean, production-ready Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>23 - Spring Boot Architecture Overview</title>
+      <link>https://vishalsblog.vercel.app/posts/23-spring-boot-architecture-overview</link>
+      <guid>https://vishalsblog.vercel.app/posts/23-spring-boot-architecture-overview</guid>
+      <pubDate>Sun, 14 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A clear and practical overview of Spring Boot architecture, explaining its core building blocks, internal flow, and how auto-configuration, starters, and embedded servers work together.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>22 - Spring Boot Configuration: application.properties &amp; application.yml</title>
+      <link>https://vishalsblog.vercel.app/posts/22-spring-boot-configuration-properties-yaml</link>
+      <guid>https://vishalsblog.vercel.app/posts/22-spring-boot-configuration-properties-yaml</guid>
+      <pubDate>Sat, 13 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A complete guide to Spring Boot configuration using application.properties and application.yml, including property sources, profiles, precedence, and best practices for real-world applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>21 - Spring Boot Starters: Simplifying Dependency Management</title>
+      <link>https://vishalsblog.vercel.app/posts/21-spring-boot-starters-simplifying-dependency-management</link>
+      <guid>https://vishalsblog.vercel.app/posts/21-spring-boot-starters-simplifying-dependency-management</guid>
+      <pubDate>Fri, 12 Dec 2025 00:00:00 GMT</pubDate>
+      <description>An in-depth look at Spring Boot starters—what they are, how they work, why they exist, and how they simplify dependency management in real-world Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>20 - Auto-Configuration in Spring Boot: How It Really Works</title>
+      <link>https://vishalsblog.vercel.app/posts/20-auto-configuration-in-spring-boot</link>
+      <guid>https://vishalsblog.vercel.app/posts/20-auto-configuration-in-spring-boot</guid>
+      <pubDate>Thu, 11 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A deep, practical explanation of Spring Boot auto-configuration—how it works internally, conditional annotations, auto-configuration classes, and how developers can customize or disable it.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>19 - Key Spring Boot Annotations Explained</title>
+      <link>https://vishalsblog.vercel.app/posts/19-key-spring-boot-annotations-explained</link>
+      <guid>https://vishalsblog.vercel.app/posts/19-key-spring-boot-annotations-explained</guid>
+      <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A comprehensive guide to the most important Spring Boot annotations, explaining what they do, why they exist, and how they work together to power modern Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>18 - Spring Boot Architecture Overview</title>
+      <link>https://vishalsblog.vercel.app/posts/18-spring-boot-architecture-overview</link>
+      <guid>https://vishalsblog.vercel.app/posts/18-spring-boot-architecture-overview</guid>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A clear architectural overview of Spring Boot, explaining its core components, internal flow, and how auto-configuration, starters, and embedded servers work together.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>17 - Maven &amp; Gradle Basics for Spring Boot</title>
+      <link>https://vishalsblog.vercel.app/posts/17-maven-gradle-basics-for-spring-boot</link>
+      <guid>https://vishalsblog.vercel.app/posts/17-maven-gradle-basics-for-spring-boot</guid>
+      <pubDate>Mon, 08 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A beginner-friendly yet practical guide to Maven and Gradle, explaining how build tools work, dependency management, project structure, and how Spring Boot leverages them for packaging and execution.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>16 - Spring IoC Container Deep Dive</title>
+      <link>https://vishalsblog.vercel.app/posts/16-spring-ioc-container-deep-dive</link>
+      <guid>https://vishalsblog.vercel.app/posts/16-spring-ioc-container-deep-dive</guid>
+      <pubDate>Sun, 07 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A deep dive into the Spring IoC Container—how it works internally, how beans are created and managed, and how Spring Boot builds on top of the container to deliver auto-configuration and dependency management.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>15 - DispatcherServlet &amp; Request Flow in Spring MVC</title>
+      <link>https://vishalsblog.vercel.app/posts/15-dispatcherservlet-request-flow</link>
+      <guid>https://vishalsblog.vercel.app/posts/15-dispatcherservlet-request-flow</guid>
+      <pubDate>Sat, 06 Dec 2025 00:00:00 GMT</pubDate>
+      <description>An in-depth explanation of DispatcherServlet, the front controller of Spring MVC, and how an HTTP request flows through Spring from client to controller and back as a response.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>14 - Spring Autowiring: Modes &amp; Best Practices</title>
+      <link>https://vishalsblog.vercel.app/posts/14-spring-autowiring-modes-best-practices</link>
+      <guid>https://vishalsblog.vercel.app/posts/14-spring-autowiring-modes-best-practices</guid>
+      <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A comprehensive guide to Spring autowiring, covering different autowiring modes, annotations, common pitfalls, and best practices for building clean and maintainable Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>13 - Component Scanning Explained (@ComponentScan)</title>
+      <link>https://vishalsblog.vercel.app/posts/13-component-scanning-explained</link>
+      <guid>https://vishalsblog.vercel.app/posts/13-component-scanning-explained</guid>
+      <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A deep dive into Spring&apos;s @ComponentScan mechanism—how Spring automatically detects beans, how package scanning works, and how to customize scanning for large Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>12 - Understanding @PostConstruct and @PreDestroy</title>
+      <link>https://vishalsblog.vercel.app/posts/12-understanding-postconstruct-predestroy</link>
+      <guid>https://vishalsblog.vercel.app/posts/12-understanding-postconstruct-predestroy</guid>
+      <pubDate>Wed, 03 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A clear and practical explanation of @PostConstruct and @PreDestroy annotations, how Spring uses them in the bean lifecycle, and when developers should apply them in real-world applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>11 - Creating Beans: @Component, @Service, @Repository, @Configuration &amp; @Bean</title>
+      <link>https://vishalsblog.vercel.app/posts/11-creating-beans-component-service-repository-configuration-bean</link>
+      <guid>https://vishalsblog.vercel.app/posts/11-creating-beans-component-service-repository-configuration-bean</guid>
+      <pubDate>Tue, 02 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A detailed guide on how to create beans in Spring using @Component, @Service, @Repository, @Configuration, and @Bean, explaining the differences and best use cases for each annotation.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>10 - Bean Scopes: Singleton, Prototype &amp; Custom Scopes</title>
+      <link>https://vishalsblog.vercel.app/posts/10-bean-scopes-singleton-prototype-custom</link>
+      <guid>https://vishalsblog.vercel.app/posts/10-bean-scopes-singleton-prototype-custom</guid>
+      <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
+      <description>A complete guide to bean scopes in Spring, including Singleton, Prototype, Request, Session, Application scopes, and how to create your own custom scope in Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>09 - Spring Bean Lifecycle</title>
+      <link>https://vishalsblog.vercel.app/posts/09-spring-bean-lifecycle</link>
+      <guid>https://vishalsblog.vercel.app/posts/09-spring-bean-lifecycle</guid>
+      <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A complete explanation of the Spring Bean Lifecycle from creation to destruction, including initialization methods, lifecycle callbacks, and how Spring Boot manages bean lifecycles behind the scenes.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>08 - BeanFactory vs ApplicationContext</title>
+      <link>https://vishalsblog.vercel.app/posts/08-beanfactory-vs-applicationcontext</link>
+      <guid>https://vishalsblog.vercel.app/posts/08-beanfactory-vs-applicationcontext</guid>
+      <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
+      <description>An in-depth comparison of BeanFactory and ApplicationContext, the two core IoC containers in the Spring Framework, and how they manage beans differently in Spring Boot applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>07 - Dependency Injection (DI) in Spring</title>
+      <link>https://vishalsblog.vercel.app/posts/07-dependency-injection-in-spring</link>
+      <guid>https://vishalsblog.vercel.app/posts/07-dependency-injection-in-spring</guid>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A complete guide to Dependency Injection (DI) in Spring, explaining types of injection, why DI is essential, and how Spring Boot uses DI to create clean and maintainable applications.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>06 - Inversion of Control (IoC) in Spring</title>
+      <link>https://vishalsblog.vercel.app/posts/06-inversion-of-control-ioc-in-spring</link>
+      <guid>https://vishalsblog.vercel.app/posts/06-inversion-of-control-ioc-in-spring</guid>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A clear and practical explanation of Inversion of Control (IoC), the foundational principle of Spring and Spring Boot, and how it enables clean, modular, and testable application architecture.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>05 - Running Your First Spring Boot Application</title>
+      <link>https://vishalsblog.vercel.app/posts/05-running-your-first-spring-boot-application</link>
+      <guid>https://vishalsblog.vercel.app/posts/05-running-your-first-spring-boot-application</guid>
+      <pubDate>Wed, 26 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A hands-on walkthrough to running your first Spring Boot application, understanding its structure, and verifying everything works correctly using the embedded server.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>04 - Installing Java, Maven, &amp; IDE Setup (STS, Eclipse, IntelliJ)</title>
+      <link>https://vishalsblog.vercel.app/posts/04-installing-java-maven-ide-setup</link>
+      <guid>https://vishalsblog.vercel.app/posts/04-installing-java-maven-ide-setup</guid>
+      <pubDate>Tue, 25 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A complete beginner-friendly guide to installing Java, setting up Maven, and configuring popular IDEs like STS, Eclipse, and IntelliJ for Spring Boot development.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>03 - Spring MVC vs Spring Boot: When and Why to Use Each</title>
+      <link>https://vishalsblog.vercel.app/posts/03-spring-mvc-vs-spring-boot</link>
+      <guid>https://vishalsblog.vercel.app/posts/03-spring-mvc-vs-spring-boot</guid>
+      <pubDate>Mon, 24 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A practical comparison between Spring MVC and Spring Boot, how each works, their differences, and when to choose one over the other for modern web application development.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>02 - Spring vs Spring Boot: Understanding the Difference</title>
+      <link>https://vishalsblog.vercel.app/posts/02-spring-vs-spring-boot</link>
+      <guid>https://vishalsblog.vercel.app/posts/02-spring-vs-spring-boot</guid>
+      <pubDate>Sun, 23 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A clear and practical explanation of the key differences between Spring and Spring Boot, why Spring Boot was created, and how it simplifies modern Java development.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+    <item>
+      <title>01 - What is Spring? What Problems Does It Solve?</title>
+      <link>https://vishalsblog.vercel.app/posts/01-what-is-spring</link>
+      <guid>https://vishalsblog.vercel.app/posts/01-what-is-spring</guid>
+      <pubDate>Sat, 22 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A beginner-friendly explanation of the Spring Framework, why it was created, and the real problems it solves in modern Java application development.</description>
+      <author>Vishal Vishwakarma</author>
+    </item>
+  </channel>
+</rss>

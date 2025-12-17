@@ -20,6 +20,9 @@ class MyDocument extends Document {
           {/* Web App Manifest - Important for Google */}
           <link rel="manifest" href="/site.webmanifest" />
 
+          {/* RSS Feed */}
+          <link rel="alternate" type="application/rss+xml" title="Vishal's Blog RSS Feed" href="/feed.xml" />
+
           {/* Theme color */}
           <meta name="theme-color" content="#ffffff" />
         </Head>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node ./scripts/generate-sitemap.js",
+    "build": "next build && node ./scripts/generate-sitemap.js && node ./scripts/generate-rss.js",
     "start": "next start"
   },
   "dependencies": {
