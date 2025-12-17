@@ -1,6 +1,6 @@
 import { ThemeProvider } from "next-themes";
-import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import "../styles/globals.css";
 import Layout from "../components/Layout";
 import Head from "next/head";
