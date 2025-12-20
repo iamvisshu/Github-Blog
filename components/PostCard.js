@@ -22,7 +22,7 @@ export default function PostCard({ slug, title, date, summary, tags, cover, word
             {/* Post content */}
             <div className="flex-1 min-w-0">
                 <Link href={`/posts/${slug}`}>
-                    <h2 className="text-2xl font-black mb-2 cursor-pointer hover:text-teal-500 dark:hover:text-teal-400 text-black dark:text-white break-words">
+                    <h2 className="text-[22px] md:text-[28px] font-extrabold mb-2 cursor-pointer hover:text-teal-500 dark:hover:text-teal-400 text-black dark:text-white break-words tracking-tight">
                         {title}
                     </h2>
                 </Link>

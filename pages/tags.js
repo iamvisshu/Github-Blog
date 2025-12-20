@@ -30,7 +30,9 @@ export default function TagsPage({ tags }) {
         <meta property="twitter:url" content="https://vishalsblog.vercel.app/" />
       </Head>
       <div className="p-8">
-        <h1 className="text-3xl font-black mb-4">Tags/Topics</h1>
+        <h1 className="text-[28px] md:text-4xl font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight">
+          Tags / Topics
+        </h1>
         <div className="flex flex-wrap gap-3">
           {Object.entries(tags).map(([tag, count]) => (
             <Link

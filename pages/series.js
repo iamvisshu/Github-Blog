@@ -28,10 +28,10 @@ export default function SeriesIndexPage({ allSeries }) {
                 <div className="max-w-4xl mx-auto">
                     {/* Page Header */}
                     <div className="mb-8">
-                        <h1 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                        <h1 className="text-[28px] md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3 flex items-center gap-2 tracking-tight">
                             All Learning Series
                         </h1>
-                        <p className="text-lg text-gray-600 dark:text-gray-400">
+                        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400">
                             Structured learning paths to help you master Spring Framework and Java development.
                         </p>
                     </div>
@@ -85,7 +85,7 @@ function SeriesCard({ series }) {
                 </span>
 
                 <div className="flex-1 w-full">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
+                    <h2 className="text-[18px] md:text-[22px] font-bold text-gray-900 dark:text-white mb-2 leading-tight tracking-tight">
                         {series.title}
                     </h2>
 
@@ -118,7 +118,7 @@ function SeriesCard({ series }) {
             </div>
 
             {/* Description */}
-            <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            <p className="text-base text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                 {series.description}
             </p>
 

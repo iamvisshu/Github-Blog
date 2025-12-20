@@ -19,12 +19,40 @@
 }
 
 @layer components {
-  .prose img {
-    @apply max-w-full h-auto;
+
+  /* Base Typography & Readability Improvements (Updated Calibration) */
+  .prose {
+    @apply text-gray-800 dark:text-gray-200 leading-[1.6] md:leading-[1.8] text-base;
+  }
+
+  .prose h1 {
+    @apply text-[22px] md:text-[28px] font-extrabold tracking-tight mt-10 mb-5 text-gray-900 dark:text-white border-b pb-3 border-gray-100 dark:border-gray-700;
+  }
+
+  .prose h2 {
+    @apply text-[18px] md:text-[22px] font-bold tracking-tight mt-8 mb-4 text-gray-900 dark:text-white;
+  }
+
+  .prose h3 {
+    @apply text-[16px] md:text-[18px] font-semibold tracking-tight mt-6 mb-3 text-gray-900 dark:text-white;
+  }
+
+  .prose p {
+    @apply mb-5;
+  }
+
+  .code-wrapper {
+    @apply relative my-8 rounded-xl overflow-hidden shadow-lg;
   }
 
   .prose pre {
-    @apply relative overflow-x-auto rounded-xl p-4 md:p-6 bg-[#282c34] text-[#abb2bf] shadow-lg;
+    @apply overflow-x-auto p-4 md:p-6 bg-[#282c34] text-[#abb2bf];
+    margin: 0 !important;
+    /* Reset margin since wrapper has it */
+  }
+
+  .prose img {
+    @apply max-w-full h-auto rounded-xl shadow-md my-8;
   }
 
   /* Highlight.js Color Palette (Atom One Dark) - scoped to .prose for specificity */

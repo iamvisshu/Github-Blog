@@ -31,13 +31,12 @@ export default function About() {
       <div className="max-w-5xl mx-auto px-6 py-12">
 
         {/* Title: About Me */}
-        <h1 className="text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600">
+        <h1 className="text-[28px] md:text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600 tracking-tight">
           About Me
         </h1>
 
-        {/* Section 1: Personal and Core Expertise */}
         <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-white flex flex-wrap items-center">
+          <h2 className="text-[18px] md:text-[22px] font-bold text-gray-900 dark:text-white flex flex-wrap items-center gap-2 mb-3">
             <span className="whitespace-nowrap">
               <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma
             </span>
@@ -49,22 +48,21 @@ export default function About() {
               />
             </span>
           </h2>
-          <div className="mb-3"></div>
 
-          <p className="mb-3 text-lg text-gray-700 dark:text-gray-300">
+          <p className="mb-3 text-base text-gray-700 dark:text-gray-300">
             I am a <strong>Senior Software Developer</strong> driven by a passion for creating <strong>robust and scalable</strong> solutions. My primary focus areas include <strong>Java</strong> development with <strong>SpringBoot</strong> for enterprise backends and <strong>Next.js/React</strong> for high-performance frontend architecture.
           </p>
-          <p className="text-lg text-gray-700 dark:text-gray-300">
+          <p className="text-base text-gray-700 dark:text-gray-300">
             This blog is where I distill over five years of professional experience into actionable tutorials and insights.
           </p>
         </div>
 
         {/* Section 2: Blog's Technical Focus */}
         <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
-          <h2 className="text-2xl font-semibold mb-3 text-gray-800 dark:text-white">
+          <h2 className="text-[18px] md:text-[22px] font-bold mb-3 text-gray-900 dark:text-white">
             <span role="img" aria-label="Code">💻</span> Deep Dives & Tech Focus
           </h2>
-          <ul className="list-disc list-inside space-y-2 text-lg text-gray-700 dark:text-gray-300 ml-4">
+          <ul className="list-disc list-inside space-y-2 text-base text-gray-700 dark:text-gray-300 ml-4">
             <li><strong>Backend Excellence:</strong> Comprehensive guides on Java, Spring Boot, Microservices, and architectural best practices.</li>
             <li><strong>Frontend Performance:</strong> Exploring modern Next.js, React, and TypeScript for state-of-the-art web applications.</li>
             <li><strong>Innovation:</strong> Insights into Generative AI integration and leveraging LLMs in development workflows.</li>

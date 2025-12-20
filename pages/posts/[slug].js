@@ -122,8 +122,8 @@ export default function PostPage({
     const codeBlocks = document.querySelectorAll("pre");
 
     codeBlocks.forEach((block) => {
-      // Avoid duplicate buttons
-      if (block.querySelector(".copy-code-btn")) return;
+      // Avoid duplicate buttons and double-wrapping
+      if (block.parentElement?.classList.contains("code-wrapper")) return;
 
       const button = document.createElement("button");
       button.className = "copy-code-btn";
@@ -145,7 +145,11 @@ export default function PostPage({
         });
       });
 
-      block.appendChild(button);
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-wrapper";
+      block.parentNode.insertBefore(wrapper, block);
+      wrapper.appendChild(block);
+      wrapper.appendChild(button);
     });
   }, [contentHtml]);
 
@@ -238,7 +242,9 @@ export default function PostPage({
             )}
           </nav>
 
-          <h1 className="text-3xl font-black mb-4 text-black dark:text-white">{title}</h1>
+          <h1 className="text-[28px] md:text-4xl font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight leading-tight">
+            {title}
+          </h1>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6 border-b pb-4">
             <span className="flex items-center gap-1 text-black dark:text-white">
