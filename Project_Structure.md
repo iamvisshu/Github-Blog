@@ -1,6 +1,6 @@
 # Project Title
 
-`Github Blog by @iamvisshu` : A modern, feature-rich Next.js blog template. Fast, fully responsive, with rich content metadata (Reading Time, Word Count), global search, and dynamic pagination.
+`Github Blog by @iamvisshu` : A professional, high-performance Next.js blog engine. Features a robust multi-part series system, glassmorphic UI, build-time syntax highlighting, and AI-ready architecture (llms.txt). SEO-optimized with JSON-LD, global search, and real-time Vercel Analytics.
 
 ## Project Structure
 
@@ -15,7 +15,9 @@ Github-Blog/
 │   ├── Header.js
 │   ├── Layout.js
 │   ├── NextSeriesCard.js
+│   ├── Pagination.js
 │   ├── PostCard.js
+│   ├── ScrollNav.js
 │   ├── SeriesBox.js
 │   ├── SeriesOverview.js
 │   └── Sidebar.js
@@ -28,6 +30,7 @@ Github-Blog/
 ├── pages/
 │   ├── _app.js
 │   ├── _document.js
+│   ├── 404.js
 │   ├── about.js
 │   ├── api/
 │   │   ├── search-data.js
@@ -56,17 +59,20 @@ Github-Blog/
 │   ├── favicon-16x16.png
 │   ├── favicon-32x32.png
 │   ├── favicon.ico
+│   ├── feed.xml
 │   ├── google1bc1018399c0d0c7.html
 │   ├── images/
 │   │   ├── avatar.jpg
 │   │   ├── example.png
 │   │   ├── header.webp
 │   │   └── og-image.jpg
+│   ├── llms.txt
 │   ├── robots.txt
 │   ├── site.webmanifest
 │   └── sitemap.xml
 ├── README.md
 ├── scripts/
+│   ├── generate-rss.js
 │   └── generate-sitemap.js
 ├── series/
 ├── styles/
