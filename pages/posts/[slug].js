@@ -8,9 +8,12 @@ import {
   Clock,
   BookOpen,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Copy,
+  Check
 } from "lucide-react";
 import Head from "next/head";
+import { useEffect } from "react";
 import SeriesBox from "../../components/SeriesBox";
 import NextSeriesCard from "../../components/NextSeriesCard";
 
@@ -114,6 +117,37 @@ export default function PostPage({
   const inferredPart = (currentIndexInSeries !== -1) ? (currentIndexInSeries + 1) : null;
 
   const seriesTotal = Array.isArray(itemsForSeries) ? itemsForSeries.length : 0;
+
+  useEffect(() => {
+    const codeBlocks = document.querySelectorAll("pre");
+
+    codeBlocks.forEach((block) => {
+      // Avoid duplicate buttons
+      if (block.querySelector(".copy-code-btn")) return;
+
+      const button = document.createElement("button");
+      button.className = "copy-code-btn";
+      button.setAttribute("aria-label", "Copy code");
+      button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+
+      button.addEventListener("click", () => {
+        const code = block.querySelector("code");
+        if (!code) return;
+
+        navigator.clipboard.writeText(code.innerText).then(() => {
+          button.classList.add("copied");
+          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+          setTimeout(() => {
+            button.classList.remove("copied");
+            button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+          }, 2000);
+        });
+      });
+
+      block.appendChild(button);
+    });
+  }, [contentHtml]);
 
   return (
     <>
@@ -308,8 +342,10 @@ export async function getStaticProps({ params: { slug } }) {
   const matter = require("gray-matter");
 
   const { remark } = await import("remark");
-  const { default: remarkHtml } = await import("remark-html");
   const { default: remarkGfm } = await import("remark-gfm");
+  const { default: remarkRehype } = await import("remark-rehype");
+  const { default: rehypeHighlight } = await import("rehype-highlight");
+  const { default: rehypeStringify } = await import("rehype-stringify");
 
   const markdownWithMeta = fs.readFileSync(
     path.join("posts", `${slug}.md`),
@@ -319,8 +355,10 @@ export async function getStaticProps({ params: { slug } }) {
   const { data: frontmatter, content } = matter(markdownWithMeta);
 
   const processedContent = await remark()
-    .use(remarkHtml)
     .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeHighlight, { detect: true })
+    .use(rehypeStringify)
     .process(content);
 
   const contentHtml = processedContent.toString()

@@ -24,7 +24,85 @@
   }
 
   .prose pre {
-    @apply overflow-x-auto;
+    @apply relative overflow-x-auto rounded-xl p-4 md:p-6 bg-[#282c34] text-[#abb2bf] shadow-lg;
+  }
+
+  /* Highlight.js Color Palette (Atom One Dark) - scoped to .prose for specificity */
+  .prose .hljs-comment,
+  .prose .hljs-quote {
+    color: #5c6370;
+    font-style: italic;
+  }
+
+  .prose .hljs-doctag,
+  .prose .hljs-keyword,
+  .prose .hljs-formula {
+    color: #c678dd;
+  }
+
+  .prose .hljs-section,
+  .prose .hljs-name,
+  .prose .hljs-selector-tag,
+  .prose .hljs-deletion,
+  .prose .hljs-subst {
+    color: #e06c75;
+  }
+
+  .prose .hljs-literal {
+    color: #56b6c2;
+  }
+
+  .prose .hljs-string,
+  .prose .hljs-regexp,
+  .prose .hljs-addition,
+  .prose .hljs-attribute,
+  .prose .hljs-meta-string {
+    color: #98c379;
+  }
+
+  .prose .hljs-built_in,
+  .prose .hljs-class .hljs-title {
+    color: #e6c07b;
+  }
+
+  .prose .hljs-attr,
+  .prose .hljs-variable,
+  .prose .hljs-template-variable,
+  .prose .hljs-type,
+  .prose .hljs-selector-class,
+  .prose .hljs-selector-attr,
+  .prose .hljs-selector-id,
+  .prose .hljs-number {
+    color: #d19a66;
+  }
+
+  .prose .hljs-symbol,
+  .prose .hljs-bullet,
+  .prose .hljs-link,
+  .prose .hljs-meta,
+  .prose .hljs-selector-pseudo {
+    color: #61afef;
+  }
+
+  .prose .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .prose .hljs-strong {
+    font-weight: bold;
+  }
+
+  .prose .hljs-link {
+    text-decoration: underline;
+  }
+
+  /* Copy Button Styling - Always Visible */
+  .copy-code-btn {
+    @apply absolute top-3 right-3 p-1.5 rounded-lg bg-gray-700/80 text-gray-300 transition-all duration-200 border border-gray-600/50 hover:bg-gray-600 hover:text-white hover:scale-105 active:scale-95 z-10 opacity-100;
+  }
+
+  .copy-code-btn.copied {
+    @apply bg-teal-600 text-white border-teal-400;
   }
 
   .prose table {
