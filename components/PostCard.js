@@ -90,8 +90,8 @@ export default function PostCard({ slug, title, date, summary, tags, cover, word
 
             {/* Arrow link */}
             <div className="self-end sm:self-center">
-                <Link href={`/posts/${slug}`}>
-                    <span className="p-2 rounded-full bg-indigo-50 dark:bg-indigo-900 text-xl font-bold text-indigo-700 dark:text-indigo-200 hover:bg-indigo-100 dark:hover:bg-indigo-700 transition-colors">
+                <Link href={`/posts/${slug}`} aria-label={`Read more: ${title}`}>
+                    <span className="p-2 rounded-full bg-teal-50 dark:bg-teal-900/30 text-xl font-bold text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors flex items-center justify-center w-10 h-10">
                         &rarr;
                     </span>
                 </Link>
