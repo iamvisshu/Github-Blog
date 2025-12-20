@@ -55,6 +55,15 @@
     @apply max-w-full h-auto rounded-xl shadow-md my-8;
   }
 
+  /* Glassmorphism & UI Utilities */
+  .glass-morphism {
+    @apply bg-white dark:bg-gray-800 border-2 border-teal-500/40 dark:border-teal-400/50 shadow-2xl transition-all duration-300;
+  }
+
+  .scroll-nav-btn {
+    @apply transition-all duration-300 transform hover:scale-110 active:scale-95 p-2.5;
+  }
+
   /* Highlight.js Color Palette (Atom One Dark) - scoped to .prose for specificity */
   .prose .hljs-comment,
   .prose .hljs-quote {

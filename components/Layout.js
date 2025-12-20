@@ -3,8 +3,12 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Image from "next/image";
+import ScrollNav from "./ScrollNav";
 
 const HEADER_IMAGE = "/images/header.webp";
+
+// Set this to true to enable scroll navigation buttons on mobile
+const SHOW_SCROLL_NAV_ON_MOBILE = false;
 
 export default function Layout({ children }) {
   // search holds the text in the input field
@@ -80,6 +84,7 @@ export default function Layout({ children }) {
       </div>
       <main className="min-h-screen">{children}</main>
       <Footer />
+      <ScrollNav showOnMobile={SHOW_SCROLL_NAV_ON_MOBILE} />
     </>
   );
 }
