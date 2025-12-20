@@ -28,7 +28,7 @@ export default function SeriesIndexPage({ allSeries }) {
                 <div className="max-w-4xl mx-auto">
                     {/* Page Header */}
                     <div className="mb-8">
-                        <h1 className="text-[28px] md:text-4xl font-extrabold text-gray-900 dark:text-white mb-3 flex items-center gap-2 tracking-tight">
+                        <h1 className="text-[22px] md:text-[24px] font-extrabold text-gray-900 dark:text-white mb-3 flex items-center gap-2 tracking-tight">
                             All Learning Series
                         </h1>
                         <p className="text-base md:text-lg text-gray-600 dark:text-gray-400">
@@ -85,7 +85,7 @@ function SeriesCard({ series }) {
                 </span>
 
                 <div className="flex-1 w-full">
-                    <h2 className="text-[18px] md:text-[22px] font-bold text-gray-900 dark:text-white mb-2 leading-tight tracking-tight">
+                    <h2 className="text-[18px] md:text-[20px] font-bold text-gray-900 dark:text-white mb-2 leading-tight tracking-tight">
                         {series.title}
                     </h2>
 

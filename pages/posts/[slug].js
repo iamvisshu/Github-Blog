@@ -242,7 +242,7 @@ export default function PostPage({
             )}
           </nav>
 
-          <h1 className="text-[28px] md:text-4xl font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight leading-tight">
+          <h1 className="text-[22px] md:text-[24px] font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight leading-tight">
             {title}
           </h1>
 

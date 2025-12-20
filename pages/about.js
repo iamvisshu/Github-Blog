@@ -31,12 +31,12 @@ export default function About() {
       <div className="max-w-5xl mx-auto px-6 py-12">
 
         {/* Title: About Me */}
-        <h1 className="text-[28px] md:text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600 tracking-tight">
+        <h1 className="text-[22px] md:text-[24px] font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600 tracking-tight">
           About Me
         </h1>
 
         <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
-          <h2 className="text-[18px] md:text-[22px] font-bold text-gray-900 dark:text-white flex flex-wrap items-center gap-2 mb-3">
+          <h2 className="text-[18px] md:text-[20px] font-bold text-gray-900 dark:text-white flex flex-wrap items-center gap-2 mb-3 tracking-tight">
             <span className="whitespace-nowrap">
               <span role="img" aria-label="Rocket">🚀</span> Vishal Vishwakarma
             </span>
@@ -59,7 +59,7 @@ export default function About() {
 
         {/* Section 2: Blog's Technical Focus */}
         <div className="mb-8 p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
-          <h2 className="text-[18px] md:text-[22px] font-bold mb-3 text-gray-900 dark:text-white">
+          <h2 className="text-[18px] md:text-[20px] font-bold mb-3 text-gray-900 dark:text-white tracking-tight">
             <span role="img" aria-label="Code">💻</span> Deep Dives & Tech Focus
           </h2>
           <ul className="list-disc list-inside space-y-2 text-base text-gray-700 dark:text-gray-300 ml-4">
@@ -72,7 +72,7 @@ export default function About() {
         {/* Section 3: Call to Action and Tech Stack */}
         <div className="p-5 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-teal-500">
           <p className="mb-3 text-xl font-medium text-gray-800 dark:text-white">
-            🌐 <strong>The Platform:</strong> Engineered with <strong>Next.js</strong> and powered by <strong>Markdown</strong> files for speed, performance, and a smooth reading experience.
+            🌐 <strong>This Blog:</strong> Engineered with <strong>Next.js</strong> and powered by <strong>Markdown</strong> files for speed, performance, and a smooth reading experience.
           </p>
           <p className="mb-5 text-lg text-gray-700 dark:text-gray-400">
             Feel free to explore the posts and connect with me to discuss the latest in software architecture.
