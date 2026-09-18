@@ -63,7 +63,7 @@ export default function Sidebar({ allTags, isHomepage = false }) {
         </div>
 
         <p className="text-gray-600 dark:text-gray-300 mb-4">
-          Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding.
+          Vishal Vishwakarma, is an AI Tech Lead with a comprehensive professional IT experience of over five years in software development and coding.
         </p>
 
         <hr className="w-full border-t border-gray-200 dark:border-gray-700 mb-4" />

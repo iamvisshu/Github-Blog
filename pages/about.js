@@ -10,7 +10,7 @@ export default function About() {
         <title>About @iamvisshu aka Vishal Vishwakarma</title>
         <meta
           name="description"
-          content="@iamvisshu aka Vishal Vishwakarma, is a Senior Software Developer with a comprehensive professional IT experience of over five years in software development and coding."
+          content="@iamvisshu aka Vishal Vishwakarma, is an AI Tech Lead with a comprehensive professional IT experience of over five years in software development and coding."
         />
         <link rel="canonical" href="https://vishalsblog.vercel.app/about" />
         {/* Open Graph meta for link previews */}
@@ -50,7 +50,7 @@ export default function About() {
           </h2>
 
           <p className="mb-3 text-base text-gray-700 dark:text-gray-300">
-            I am a <strong>Senior Software Developer</strong> driven by a passion for creating <strong>robust and scalable</strong> solutions. My primary focus areas include <strong>Java</strong> development with <strong>SpringBoot</strong> for enterprise backends and <strong>Next.js/React</strong> for high-performance frontend architecture.
+            I am a <strong>AI Tech Lead</strong> driven by a passion for creating <strong>robust and scalable</strong> solutions. My primary focus areas include <strong>Java</strong> development with <strong>SpringBoot</strong> for enterprise backends and <strong>Next.js/React</strong> for high-performance frontend architecture.
           </p>
           <p className="text-base text-gray-700 dark:text-gray-300">
             This blog is where I distill over five years of professional experience into actionable tutorials and insights.
